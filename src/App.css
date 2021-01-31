@@ -1,16 +1,17 @@
+@import '~antd/dist/antd.css';
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1, h2, h3, h4, h5, h6 {
+  color: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.App-logo {
+  height: 15vmin;
+  margin-bottom: 25px;
+  pointer-events: none;
 }
 
 .App-header {
@@ -35,4 +36,33 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.login-form, .register-form {
+  min-width: 300px;
+}
+
+.login-form .login-form-submit-btn {
+  width: 100%;
+}
+
+.login-form .login-form-register-link {
+  
+}
+
+.login-form label, .register-form label {
+  color: #fff !important;
+}
+
+.register-form input {
+  float: right;
+  max-width: 200px;
+}
+
+.register-form .register-form-button-wrapper {
+  text-align: center;
+}
+
+.register-form .register-form-submit-btn {
+  margin-left: 15px !important;
 }
