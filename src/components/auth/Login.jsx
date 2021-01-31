@@ -14,24 +14,24 @@ function Login() {
 
       <Form onFinish={handleSubmit} className="login-form" layout="vertical">
 
-        <Form.Item label="Username" name="username"
+        <Form.Item name="username"
           rules={[
             {
               required: true,
               message: "Username is required"
             },
           ]}>
-          <Input />
+          <Input placeholder="Username" />
         </Form.Item>
 
-        <Form.Item label="Password" name="password"
+        <Form.Item name="password"
           rules={[
             {
               required: true,
               message: "Password is required"
             },
           ]}>
-          <Input type="password" />
+          <Input type="password" placeholder="Password" />
         </Form.Item>
 
         <Form.Item>
