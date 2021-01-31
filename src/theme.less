@@ -1,10 +1,27 @@
 @import "../node_modules/antd/dist/antd.less";
 
-@primary-color: @blue-6;
-@heading-color: #ffffff;             
+@white: #fff;
+@black: rgb(49, 55, 57);
 
-@border-radius-base: 6px;
+@body-background: #282c34;
+@component-background: @black;
+
+@primary-color: @blue-6;          
+
+@heading-color: @white;
+@text-color: fade(@white, 85%);
+@text-color-secondary: fade(@white, 45%);
+@text-color-inverse: @black;
+@icon-color: @white;
+@icon-color-hover: fade(@black, 75%);
+
+@border-radius-base: 8px;
+@border-color-base: hsv(0, 0, 15%); // base border outline a component
 
 @height-base: 40px;
 @height-lg: 48px;
 @height-sm: 32px;
+
+@input-color: @text-color;
+@input-border-color: @border-color-base;
+@input-bg: @component-background;

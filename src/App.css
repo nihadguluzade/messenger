@@ -1,7 +1,7 @@
 @import './theme.css';
 
 .App {
-  text-align: center;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -11,7 +11,6 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -19,6 +18,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  text-align: center;
 }
 
 .App-link {
@@ -61,4 +61,53 @@
 
 .register-form .register-form-submit-btn {
   margin-left: 15px !important;
+}
+
+#MainComponent .chat-item-row {
+  padding: 12px 12px;
+  height: 72px;
+}
+
+#MainComponent .chat-item-row img {
+  border-radius: 100%;
+}
+
+#MainComponent .chat-item-user-name {
+  font-size: 16px;
+  display: block;
+  line-height: normal;
+}
+
+#MainComponent .chat-item-message {
+  color: rgba(255,255,255,0.65);
+}
+
+#MainHeaderComponent {
+  background-color: #20252b;
+}
+
+#MainHeaderComponent .ant-row {
+  padding: 24px 12px;
+}
+
+#MainHeaderComponent .ant-row:last-child {
+  padding-top: 0;
+}
+
+#MainHeaderComponent .avatar {
+  border-radius: 6px;
+}
+
+#MainHeaderComponent .app-heading {
+  text-align: center;
+}
+
+#MainHeaderComponent .edit-icon {
+  float: right;
+  margin-top: 4px;
+}
+
+#MainHeaderComponent .edit-icon svg {
+  height: 22px;
+  width: 22px;
 }
