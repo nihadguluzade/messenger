@@ -21,7 +21,7 @@ function Register() {
               message: "Email is required"
             },
           ]}>
-          <Input type="email" />
+          <Input placeholder="email" type="email" />
         </Form.Item>
 
         <Form.Item label="Username" name="username"
@@ -31,7 +31,7 @@ function Register() {
               message: "Username is required"
             },
           ]}>
-          <Input />
+          <Input placeholder="username" />
         </Form.Item>
 
         <Form.Item label="Password" name="password"
@@ -41,7 +41,7 @@ function Register() {
               message: "Password is required"
             },
           ]}>
-          <Input type="password" />
+          <Input placeholder="password" type="password" />
         </Form.Item>
 
         <Form.Item className="register-form-button-wrapper">

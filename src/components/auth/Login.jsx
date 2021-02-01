@@ -14,7 +14,7 @@ function Login() {
 
       <Form onFinish={handleSubmit} className="login-form" layout="vertical">
 
-        <Form.Item name="username"
+        <Form.Item label={"Username"} name="username"
           rules={[
             {
               required: true,
@@ -24,7 +24,7 @@ function Login() {
           <Input placeholder="Username" />
         </Form.Item>
 
-        <Form.Item name="password"
+        <Form.Item label={"Password"} name="password"
           rules={[
             {
               required: true,

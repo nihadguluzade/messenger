@@ -63,6 +63,10 @@
   margin-left: 15px !important;
 }
 
+.image-circle {
+  border-radius: 100%;
+}
+
 #MainComponent .chat-item-row {
   padding: 12px 12px;
   height: 72px;
@@ -82,8 +86,44 @@
   color: rgba(255,255,255,0.65);
 }
 
+#MainComponent .chat-item-message.unread {
+  font-weight: bold;
+  color: #fff;
+}
+
+#MainComponent .chat-item-message.unread {
+  font-weight: bold;
+  color: #fff;
+}
+
+#MainComponent .chat-item-message.unread .unread-circle {
+  width: 12px;
+  height: 12px;
+  float: right;
+  border-radius: 100%;
+  background-color: rgb(0, 143, 255);
+}
+
+#MainComponent .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) 
+.ant-menu-item-selected {
+  background-color: rgb(49, 55, 57);
+}
+
+#MainComponent .chat-screen-layout {
+  margin-left: 380px
+}
+
+#MainComponent .ant-layout-sider {
+  background: rgb(14, 1, 22);
+}
+
+#MainComponent .ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, 
+.ant-menu.ant-menu-dark .ant-menu-sub {
+  background: rgb(14, 1, 22);
+}
+
 #MainHeaderComponent {
-  background-color: #20252b;
+  background-color: rgb(14, 1, 22);
 }
 
 #MainHeaderComponent .ant-row {
@@ -95,7 +135,7 @@
 }
 
 #MainHeaderComponent .avatar {
-  border-radius: 6px;
+  border-radius: 100%;
 }
 
 #MainHeaderComponent .app-heading {
@@ -110,4 +150,52 @@
 #MainHeaderComponent .edit-icon svg {
   height: 22px;
   width: 22px;
+}
+
+#ChatScreenHeaderComponent {
+  background-color: #000;
+  padding: 6px 16px;
+  position: fixed;
+  width: 100%;
+}
+
+#ChatScreenHeaderComponent .chat-dest-user {
+  font-size: 16px;
+  color: #fff;
+  line-height: 3;
+  font-weight: bold;
+}
+
+#ChatScreenHeaderComponent .chat-settings {
+  float: right;
+  font-size: 24px;
+  font-weight: bold;
+  transform: rotate(90deg);
+  line-height: 1.8;
+  color: rgb(0, 143, 255);
+}
+
+#ChatScreenComponent {
+  background-color: #000;
+  height: 100vh;
+  padding: 24px 36px;
+}
+
+#ChatInputComponent {
+  background-color: #000;
+  padding: 12px;
+  position: fixed;
+  bottom: 0;
+  width: 63%;
+}
+
+#ChatInputComponent .add-input {
+  color: rgb(0, 143, 255);
+  height: 36px;
+  width: 36px;
+}
+
+#ChatInputComponent .chat-input {
+  width: 100%;
+  border-radius: 20px;
 }

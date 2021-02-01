@@ -22,7 +22,8 @@ function MainHeader() {
         </Col>
       </Row>
       <Row>
-        <Input.Search 
+        <Input.Search
+          size="small"
           placeholder="Search" 
           allowClear
           onSearch={onSearch} />
