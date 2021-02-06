@@ -1,4 +1,4 @@
-@import './theme.css';
+@import "./theme.css";
 
 .App {
   min-height: 100vh;
@@ -34,7 +34,8 @@
   }
 }
 
-.login-form, .register-form {
+.login-form,
+.register-form {
   min-width: 300px;
 }
 
@@ -43,10 +44,10 @@
 }
 
 .login-form .login-form-register-link {
-  
 }
 
-.login-form label, .register-form label {
+.login-form label,
+.register-form label {
   color: #fff !important;
 }
 
@@ -83,7 +84,7 @@
 }
 
 #MainComponent .chat-item-message {
-  color: rgba(255,255,255,0.65);
+  color: rgba(255, 255, 255, 0.65);
 }
 
 #MainComponent .chat-item-message.unread {
@@ -104,26 +105,28 @@
   background-color: rgb(0, 143, 255);
 }
 
-#MainComponent .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal) 
-.ant-menu-item-selected {
-  background-color: rgb(49, 55, 57);
+#MainComponent
+  .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
+  .ant-menu-item-selected {
+  background-color: #323739;
 }
 
 #MainComponent .chat-screen-layout {
-  margin-left: 380px
+  margin-left: 380px;
 }
 
 #MainComponent .ant-layout-sider {
-  background: rgb(14, 1, 22);
+  background: #131c22;
 }
 
-#MainComponent .ant-menu.ant-menu-dark, .ant-menu-dark .ant-menu-sub, 
+#MainComponent .ant-menu.ant-menu-dark,
+.ant-menu-dark .ant-menu-sub,
 .ant-menu.ant-menu-dark .ant-menu-sub {
-  background: rgb(14, 1, 22);
+  background: #131c22;
 }
 
 #MainHeaderComponent {
-  background-color: rgb(14, 1, 22);
+  background-color: #2a2f32;
 }
 
 #MainHeaderComponent .ant-row {
@@ -153,7 +156,7 @@
 }
 
 #ChatScreenHeaderComponent {
-  background-color: #000;
+  background-color: #2a2f32;
   padding: 6px 16px;
   position: fixed;
   width: 100%;
@@ -176,9 +179,13 @@
 }
 
 #ChatScreenComponent {
-  background-color: #000;
+  background-color: #0c1318;
   height: 100vh;
   padding: 24px 36px;
+}
+
+#ChatScreenComponent .container {
+  margin-top: 63px;
 }
 
 #ChatInputComponent {
@@ -198,4 +205,33 @@
 #ChatInputComponent .chat-input {
   width: 100%;
   border-radius: 20px;
+}
+
+#BubbleComponent .bubble-wrapper {
+  margin: 10px 0;
+  width: 100%;
+}
+
+#BubbleComponent .bubble-wrapper.sender {
+  float: right;
+  text-align: right;
+}
+
+#BubbleComponent .bubble-wrapper.receiver {
+  float: left;
+  text-align: left;
+}
+
+#BubbleComponent .bubble-sender {
+  background-color: rgb(0, 143, 255);
+  padding: 10px 12px;
+  /* border-radius: 18px 18px 2px; */
+  border-radius: 18px;
+}
+
+#BubbleComponent .bubble-receiver {
+  background-color: #303030;
+  padding: 10px 12px;
+  /* border-radius: 18px 18px 18px 2px; */
+  border-radius: 18px;
 }
