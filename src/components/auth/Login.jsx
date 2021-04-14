@@ -10,8 +10,6 @@ function Login() {
   return (
     <div className="App-header">
 
-      <h2><strong>Welcome back!</strong></h2>
-
       <Form onFinish={handleSubmit} className="login-form" layout="vertical">
 
         <Form.Item label={"Username"} name="username"
