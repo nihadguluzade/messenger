@@ -9,7 +9,9 @@ import ChatScreenWrapper from '../dynamic/ChatScreenWrapper';
 function Main() {
   return (
     <Layout id="MainComponent">
-      <Sider width={380} 
+      <Sider
+        theme="light"
+        width={380}
         style={{
           overflow: 'auto',
           height: '100vh',
@@ -19,7 +21,7 @@ function Main() {
 
         <MainHeader />
 
-        <Menu theme="dark" mode="inline" defaultSelectedKeys={['3']}>
+        <Menu theme="light" mode="inline" defaultSelectedKeys={['3']}>
           <Menu.Item key="1" className="chat-item-row">
             <Row>
               <Col span={3}>
@@ -40,7 +42,7 @@ function Main() {
                 <span className="chat-item-user-name">James Neumann</span>
                 <span className="chat-item-message unread">
                   Sent a GIF from Tenor - 14m
-                  <div className="unread-circle"></div>  
+                  <div className="unread-circle"></div>
                 </span>
               </Col>
             </Row>
@@ -57,7 +59,7 @@ function Main() {
             </Row>
           </Menu.Item>
         </Menu>
-      
+
       </Sider>
 
       <Layout className="chat-screen-layout">

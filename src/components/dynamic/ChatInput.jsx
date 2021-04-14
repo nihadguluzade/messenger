@@ -7,14 +7,21 @@ function ChatInput() {
     <div id="ChatInputComponent">
       <Row>
         <Col span={1}>
-          <Button type="primary" shape="circle" 
+          <Button
+            className="op-btn"
+            type="primary"
+            shape="circle"
             icon={<PlusOutlined className="add-option" />} />
         </Col>
         <Col span={19} offset={1}>
           <Input className="chat-input" placeholder="Type a message..." />
         </Col>
         <Col span={1} offset={1}>
-          <Button type="primary" shape="circle" icon={<SendOutlined />} />
+          <Button
+            className="op-btn"
+            type="primary"
+            shape="circle"
+            icon={<SendOutlined />} />
         </Col>
       </Row>
     </div>
