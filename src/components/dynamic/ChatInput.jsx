@@ -11,7 +11,7 @@ function ChatInput() {
             icon={<PlusOutlined className="add-option" />} />
         </Col>
         <Col span={19} offset={1}>
-          <Input className="chat-input" />
+          <Input className="chat-input" placeholder="Type a message..." />
         </Col>
         <Col span={1} offset={1}>
           <Button type="primary" shape="circle" icon={<SendOutlined />} />

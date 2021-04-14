@@ -155,6 +155,10 @@
   width: 22px;
 }
 
+#MainHeaderComponent .op-btn {
+  text-align: right;
+}
+
 #ChatScreenHeaderComponent {
   background-color: #2a2f32;
   padding: 6px 16px;

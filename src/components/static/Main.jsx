@@ -56,9 +56,6 @@ function Main() {
               </Col>
             </Row>
           </Menu.Item>
-          <Menu.Item key="4">
-            <Link to="/">Home</Link>
-          </Menu.Item>
         </Menu>
       
       </Sider>
