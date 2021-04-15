@@ -8,7 +8,12 @@ class UserService extends Component {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ _id: user._id, email: user.email, password: user.password }),
+      body: JSON.stringify({ 
+        _id: user._id, 
+        email: user.email, 
+        password: user.password,
+        joindate: user.joindate
+      }),
     });
     return await response.text();
   }

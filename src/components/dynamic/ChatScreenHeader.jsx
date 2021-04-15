@@ -22,9 +22,9 @@ function ChatScreenHeader() {
   return (
     <div id="ChatScreenHeaderComponent">
       <Row>
-        <Col span={2}>
+        {/*<Col span={2}>
           <Image className="image-circle" width={45} src={defaultAvatar} />
-        </Col>
+        </Col>*/}
         <Col span={11}>
           <span className="chat-dest-user">James Neumann</span>
         </Col>

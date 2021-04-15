@@ -24,9 +24,9 @@ function Main() {
         <Menu theme="light" mode="inline" defaultSelectedKeys={['3']}>
           <Menu.Item key="1" className="chat-item-row">
             <Row>
-              <Col span={3}>
+              {/*<Col span={3}>
                 <Image width={50} src={defaultAvatar} />
-              </Col>
+              </Col>*/}
               <Col span={18} offset={1}>
                 <span className="chat-item-user-name">James Neumann</span>
                 <span className="chat-item-message">hey what&#39;s going on? - 10m</span>
@@ -35,9 +35,9 @@ function Main() {
           </Menu.Item>
           <Menu.Item key="2" className="chat-item-row">
             <Row>
-              <Col span={3}>
+              {/*<Col span={3}>
                 <Image width={50} src={defaultAvatar} />
-              </Col>
+              </Col>*/}
               <Col span={18} offset={1}>
                 <span className="chat-item-user-name">James Neumann</span>
                 <span className="chat-item-message unread">
@@ -49,9 +49,9 @@ function Main() {
           </Menu.Item>
           <Menu.Item key="3" className="chat-item-row">
             <Row>
-              <Col span={3}>
+              {/*<Col span={3}>
                 <Image width={50} src={defaultAvatar} />
-              </Col>
+              </Col>*/}
               <Col span={18} offset={1}>
                 <span className="chat-item-user-name">James Neumann</span>
                 <span className="chat-item-message">hey what&#39;s going on? - 10m</span>

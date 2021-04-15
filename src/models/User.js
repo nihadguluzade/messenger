@@ -8,9 +8,12 @@ export class User {
 
   password;
 
+  joindate;
+
   constructor(email, username, password) {
     this.email = email;
     this.username = username;
     this.password = password;
+    this.joindate = new Date();
   }
 }

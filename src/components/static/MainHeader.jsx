@@ -12,9 +12,9 @@ class MainHeader extends Component {
     return (
       <div id="MainHeaderComponent">
         <Row>
-          <Col span={5} offset={1}>
+          {/*<Col span={5} offset={1}>
             <Image width={40} className="avatar" src={defaultAvatar}/>
-          </Col>
+          </Col>*/}
           <Col span={11}>
             <h2 className="app-heading"><strong>Messenger</strong></h2>
           </Col>
