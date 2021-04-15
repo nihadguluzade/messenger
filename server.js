@@ -16,6 +16,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
 
   const db = client.db('messenger');
   const usersCollection = db.collection('users');
+  const messagesCollection = db.collection('messages');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,6 +37,26 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .then(result => {
         console.log("Save user");
         res.send(result);
+      })
+      .catch(console.error);
+  });
+
+  app.put('/api/message', (req, res) => {
+    console.log(req.body);
+    req.body._id = new ObjectId(req.body._id);
+    messagesCollection.save(req.body)
+      .then(result => {
+        console.log("Message sent");
+        res.send(result);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/message', (req, res) => {
+    messagesCollection.find().toArray()
+      .then(results => {
+        console.log("Got messages");
+        res.send(results);
       })
       .catch(console.error);
   });
