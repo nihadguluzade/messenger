@@ -16,4 +16,13 @@ export class User {
     this.password = password;
     this.joindate = new Date();
   }
+
+
+  get id() {
+    return this._id;
+  }
+
+  set id(value) {
+    this._id = value;
+  }
 }

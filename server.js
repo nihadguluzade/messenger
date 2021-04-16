@@ -18,6 +18,12 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   const usersCollection = db.collection('users');
   const messagesCollection = db.collection('messages');
 
+  const changeStream = messagesCollection.watch();
+
+  changeStream.on('change', (changes) => {
+    console.log('changed', changes);
+  })
+
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -52,11 +58,35 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
-  app.get('/api/message', (req, res) => {
+  app.get('/api/messages', (req, res) => {
     messagesCollection.find().toArray()
       .then(results => {
         console.log("Got messages");
         res.send(results);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/message/:_id', (req, res) => {
+    messagesCollection.findOne({"_id": new ObjectId(req.params._id)})
+      .then(result => {
+        console.log("Got message");
+        console.log(result);
+        res.send(result);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/conversation/u1id=:u1id&u2id=:u2id', (req, res) => {
+    console.log(req.params.u1id, req.params.u2id);
+    messagesCollection.find().toArray()
+      .then(result => {
+        console.log("Got conversation of length:", result.length);
+        const filtered = result.filter(value => (
+          (value.destUID == req.params.u1id && value.srcUID == req.params.u2id) || 
+          (value.destUID == req.params.u2id && value.srcUID == req.params.u1id)
+        ));
+        res.send(filtered);
       })
       .catch(console.error);
   });

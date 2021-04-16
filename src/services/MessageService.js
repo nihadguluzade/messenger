@@ -13,10 +13,27 @@ class MessageService extends Component {
         destUID: message.destUID,
         srcUID: message.srcUID,
         sentTime: message.sentTime,
-        read: message.read
+        read: message.read,
+        content: message.content
       }),
     });
     return await response.text();
+  }
+
+  async getMessages() {
+    const response = await fetch('/api/message');
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
+  async getConversation(destUID, srcUID) {
+    const response = await fetch('/api/conversation/u1id=' + destUID + '&u2id=' + srcUID);
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
   }
 
 }

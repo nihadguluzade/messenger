@@ -16,6 +16,9 @@ const Home = (props) => {
         <Button type="primary" onClick={() => signInAsAdmin(props)}>
           <Link to="/main">Sign In As Admin</Link>
         </Button>
+        <Button type="primary" onClick={() => signInAsDev(props)}>
+          <Link to="/main">Sign In As Dev</Link>
+        </Button>
         <Button><Link to="/main">Home</Link></Button>
       </div>
     </header>
@@ -25,6 +28,14 @@ const Home = (props) => {
 function signInAsAdmin(props) {
   const {signIn} = props;
   const user = new User('admin@messenger.fb', 'admin', 'admin');
+  user._id = 1;
+  signIn(user);
+}
+
+function signInAsDev(props) {
+  const {signIn} = props;
+  const user = new User('dev@messenger.fb', 'dev', 'dev');
+  user._id = 3;
   signIn(user);
 }
 
