@@ -8,7 +8,6 @@ import ChatScreenWrapper from '../dynamic/ChatScreenWrapper';
 import { connect } from 'react-redux';
 
 function Main(props) {
-  console.log(props);
   return (
     <Layout id="MainComponent">
       <Sider
@@ -74,6 +73,6 @@ function Main(props) {
 
 function mapState(state) {
   return {user: state.user}
-} 
+}
 
 export default connect(mapState)(Main);

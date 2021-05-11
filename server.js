@@ -9,7 +9,30 @@ const connectionString = configs.connectionString;
 const mongodb = require('mongodb');
 const {MongoClient, ObjectId} = mongodb;
 
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true
+  }
+});
+
+io.on('connection', function (socket) {
+  console.log('SocketIO connected');
+
+  const {roomId} = socket.handshake.query;
+  socket.join(roomId);
+
+  socket.on('msg', function(data) {
+    io.in(roomId).emit('newMessage', data);
+  });
+
+  socket.on('disconnect', function() {
+    console.log('SocketIO disconnected');
+  });
+});
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client => {
   console.log("Connected to MongoDB");
@@ -17,12 +40,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   const db = client.db('messenger');
   const usersCollection = db.collection('users');
   const messagesCollection = db.collection('messages');
-
-  const changeStream = messagesCollection.watch();
-
-  changeStream.on('change', (changes) => {
-    console.log('changed', changes);
-  })
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -48,7 +65,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   });
 
   app.put('/api/message', (req, res) => {
-    console.log(req.body);
     req.body._id = new ObjectId(req.body._id);
     messagesCollection.save(req.body)
       .then(result => {
@@ -83,7 +99,7 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .then(result => {
         console.log("Got conversation of length:", result.length);
         const filtered = result.filter(value => (
-          (value.destUID == req.params.u1id && value.srcUID == req.params.u2id) || 
+          (value.destUID == req.params.u1id && value.srcUID == req.params.u2id) ||
           (value.destUID == req.params.u2id && value.srcUID == req.params.u1id)
         ));
         res.send(filtered);
@@ -91,5 +107,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
-  app.listen(port, () => console.log(`Listening on port ${port}`));
+  server.listen(port, () => console.log(`Listening on port ${port}`));
+
 }).catch(console.error);

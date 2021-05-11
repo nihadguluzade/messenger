@@ -6,6 +6,10 @@ import Bubble from './Bubble';
 import MessageService from '../../services/MessageService';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
+import socketIOClient from "socket.io-client";
+
+const SERVER_ENDPOINT = "http://127.0.0.1:5000"
+const socket = socketIOClient(SERVER_ENDPOINT);
 
 class ChatScreenWrapper extends Component {
 
@@ -17,16 +21,15 @@ class ChatScreenWrapper extends Component {
   messageService = new MessageService();
 
   componentDidMount() {
-    this.refreshMessages();
+    const that = this;
+    socket.on('message', (data) => {console.log('gotit', data)});
+    socket.on('newMessage', function(data) {
+      that.refreshMessages();
+    });
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log("this.state", this.state.conversation);
-    console.log("prevState", prevState.conversation);
-    if (this.state.conversation.length != prevState.conversation.length && 
-      this.state.conversation != prevState.conversation) {
-      this.refreshMessages();
-    }
+  emitSent = (message) => {
+    socket.emit('msg', message);
   }
 
   refreshMessages = () => {
@@ -46,7 +49,7 @@ class ChatScreenWrapper extends Component {
           <Button onClick={() => this.setState({destUID: 1}, this.refreshMessages)}>Chat with admin</Button>
           <Button onClick={() => this.setState({destUID: 3}, this.refreshMessages)}>Chat with dev</Button>
         </div>
-        
+
         {/* <ChatScreen /> */}
         <div id="ChatScreenComponent">
           <div className="container">
@@ -63,8 +66,8 @@ class ChatScreenWrapper extends Component {
             })}
           </div>
         </div>
-        
-        <ChatInput destUID={destUID} refresh={this.refreshMessages} />
+
+        <ChatInput destUID={destUID} emit={this.emitSent} />
       </>
     )
   }

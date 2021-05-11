@@ -19,11 +19,11 @@ class ChatInput extends Component {
   }
 
   send = () => {
-    const { user, destUID, refresh } = this.props;
+    const { user, destUID, emit } = this.props;
     const message = new Message(destUID, user._id, this.state.message);
     this.messageService.sendMessage(message);
     this.setState({ message: '' });
-    refresh();
+    emit(message);
   }
 
   render() {
