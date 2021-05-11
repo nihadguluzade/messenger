@@ -2,15 +2,32 @@ import { Component } from "react";
 
 class UserService extends Component {
 
+  async getUsers() {
+    const response = await fetch('/api/users');
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
+  async getUser(username, password) {
+    const response = await fetch(`/api/user/username=${username}&password=${password}`);
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
   async saveUser(user) {
     const response = await fetch('/api/users', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ 
-        _id: user._id, 
-        email: user.email, 
+      body: JSON.stringify({
+        _id: user._id,
+        email: user.email,
+        username: user.username,
         password: user.password,
         joindate: user.joindate
       }),

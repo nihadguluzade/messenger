@@ -53,6 +53,14 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
+  app.get('/api/user/username=:username&password=:password', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(value => req.params.username == value.username && req.params.password == value.password));
+      })
+      .catch(console.error);
+  });
+
   app.put('/api/users', (req, res) => {
     console.log(req.body);
     req.body._id = new ObjectId(req.body._id);
@@ -94,10 +102,8 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   });
 
   app.get('/api/conversation/u1id=:u1id&u2id=:u2id', (req, res) => {
-    console.log(req.params.u1id, req.params.u2id);
     messagesCollection.find().toArray()
       .then(result => {
-        console.log("Got conversation of length:", result.length);
         const filtered = result.filter(value => (
           (value.destUID == req.params.u1id && value.srcUID == req.params.u2id) ||
           (value.destUID == req.params.u2id && value.srcUID == req.params.u1id)

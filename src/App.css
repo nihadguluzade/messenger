@@ -256,3 +256,19 @@
   /* border-radius: 18px 18px 18px 2px; */
   border-radius: 18px;
 }
+
+.m-l-12 {
+  margin-left: 12px;
+}
+
+.m-r-12 {
+  margin-right: 12px;
+}
+
+.m-t-12 {
+  margin-top: 12px;
+}
+
+.m-b-12 {
+  margin-bottom: 12px;
+}
