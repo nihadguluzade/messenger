@@ -9,13 +9,37 @@ const connectionString = configs.connectionString;
 const mongodb = require('mongodb');
 const {MongoClient, ObjectId} = mongodb;
 
-const bodyParser = require('body-parser'); 
+const bodyParser = require('body-parser');
+
+const server = require('http').Server(app);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    credentials: true
+  }
+});
+
+io.on('connection', function (socket) {
+  console.log('SocketIO connected');
+
+  const {roomId} = socket.handshake.query;
+  socket.join(roomId);
+
+  socket.on('msg', function(data) {
+    io.in(roomId).emit('newMessage', data);
+  });
+
+  socket.on('disconnect', function() {
+    console.log('SocketIO disconnected');
+  });
+});
 
 MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client => {
   console.log("Connected to MongoDB");
 
   const db = client.db('messenger');
   const usersCollection = db.collection('users');
+  const messagesCollection = db.collection('messages');
 
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
@@ -40,5 +64,49 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
-  app.listen(port, () => console.log(`Listening on port ${port}`));
+  app.put('/api/message', (req, res) => {
+    req.body._id = new ObjectId(req.body._id);
+    messagesCollection.save(req.body)
+      .then(result => {
+        console.log("Message sent");
+        res.send(result);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/messages', (req, res) => {
+    messagesCollection.find().toArray()
+      .then(results => {
+        console.log("Got messages");
+        res.send(results);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/message/:_id', (req, res) => {
+    messagesCollection.findOne({"_id": new ObjectId(req.params._id)})
+      .then(result => {
+        console.log("Got message");
+        console.log(result);
+        res.send(result);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/conversation/u1id=:u1id&u2id=:u2id', (req, res) => {
+    console.log(req.params.u1id, req.params.u2id);
+    messagesCollection.find().toArray()
+      .then(result => {
+        console.log("Got conversation of length:", result.length);
+        const filtered = result.filter(value => (
+          (value.destUID == req.params.u1id && value.srcUID == req.params.u2id) ||
+          (value.destUID == req.params.u2id && value.srcUID == req.params.u1id)
+        ));
+        res.send(filtered);
+      })
+      .catch(console.error);
+  });
+
+  server.listen(port, () => console.log(`Listening on port ${port}`));
+
 }).catch(console.error);

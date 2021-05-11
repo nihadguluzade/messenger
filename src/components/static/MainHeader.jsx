@@ -1,14 +1,15 @@
-import React, {Component} from 'react';
-import {Row, Col, Image, Input, Button} from 'antd';
-import {LogoutOutlined} from '@ant-design/icons';
+import React, { Component } from 'react';
+import { Row, Col, Image, Input, Button } from 'antd';
+import { LogoutOutlined } from '@ant-design/icons';
 import defaultAvatar from '../../assets/sample-avatar-female.png';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux'; 
 
 const onSearch = value => console.log(value);
 
 class MainHeader extends Component {
   render() {
-    const {history} = this.props;
+    const { user, history } = this.props;
     return (
       <div id="MainHeaderComponent">
         <Row>
@@ -17,6 +18,7 @@ class MainHeader extends Component {
           </Col>*/}
           <Col span={11}>
             <h2 className="app-heading"><strong>Messenger</strong></h2>
+            <span>{user.user.username}</span>
           </Col>
           <Col span={5} offset={1}>
             <Button icon={<LogoutOutlined/>} onClick={() => history.push("/")}/>
@@ -34,4 +36,4 @@ class MainHeader extends Component {
   }
 }
 
-export default withRouter(MainHeader);
+export default connect((state) => {return {user: state}})(withRouter(MainHeader));

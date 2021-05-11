@@ -5,8 +5,9 @@ import Sider from 'antd/lib/layout/Sider';
 import MainHeader from './MainHeader';
 import defaultAvatar from '../../assets/sample-avatar-female.png';
 import ChatScreenWrapper from '../dynamic/ChatScreenWrapper';
+import { connect } from 'react-redux';
 
-function Main() {
+function Main(props) {
   return (
     <Layout id="MainComponent">
       <Sider
@@ -70,4 +71,8 @@ function Main() {
   )
 }
 
-export default Main;
+function mapState(state) {
+  return {user: state.user}
+}
+
+export default connect(mapState)(Main);
