@@ -53,6 +53,14 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
+  app.get('/api/user/_id=:userId', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(value => req.params.userId == value._id)[0]);
+      })
+      .catch(console.error);
+  });
+
   app.get('/api/user/username=:username&password=:password', (req, res) => {
     usersCollection.find().toArray()
       .then(result => {

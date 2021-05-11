@@ -15,17 +15,22 @@ class ChatScreenWrapper extends Component {
 
   state = {
     conversation: new Array(),
-    destUID: -1
   }
 
   messageService = new MessageService();
 
   componentDidMount() {
     const that = this;
-    socket.on('message', (data) => {console.log('gotit', data)});
+    this.refreshMessages();
     socket.on('newMessage', function(data) {
       that.refreshMessages();
     });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.destUID != this.props.destUID) {
+      this.refreshMessages();
+    }
   }
 
   emitSent = (message) => {
@@ -33,29 +38,30 @@ class ChatScreenWrapper extends Component {
   }
 
   refreshMessages = () => {
-    const {user} = this.props;
-    const {destUID} = this.state;
-    this.messageService.getConversation(destUID, user.id)
+    const {user, destUID} = this.props;
+    this.messageService.getConversation(destUID, user._id)
       .then(conversation => this.setState({ conversation }))
       .catch(console.error);
   }
 
   render() {
-    const { destUID, conversation } = this.state;
+    const { destUID } = this.props;
+    const { conversation } = this.state;
     return (
       <>
-        <ChatScreenHeader />
-        <div>
+        <ChatScreenHeader destUID={destUID} />
+
+        {/*<div>
           <Button onClick={() => this.setState({destUID: 1}, this.refreshMessages)}>Chat with admin</Button>
           <Button onClick={() => this.setState({destUID: 3}, this.refreshMessages)}>Chat with dev</Button>
-        </div>
+        </div>*/}
 
         {/* <ChatScreen /> */}
         <div id="ChatScreenComponent">
           <div className="container">
             {conversation.length > 0 && conversation.map((message, index) => {
               let type;
-              if (message.srcUID == this.props.user.id) {
+              if (message.srcUID == this.props.user._id) {
                 type = "sender";
               } else {
                 type = "receiver";

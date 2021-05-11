@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Menu, Row, Col, Image } from 'antd';
+import {Layout, Menu, Row, Col, Image, Empty} from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import MainHeader from './MainHeader';
 import defaultAvatar from '../../assets/sample-avatar-female.png';
@@ -11,13 +11,25 @@ import UserService from "../../services/UserService";
 class Main extends Component {
 
   state = {
-    chatters: []
+    visibleUsers: [],
+    destUID: -1
   }
 
   userService = new UserService();
 
   getUsers = () => {
-    this.userService.getUsers().then(data => console.log('getUsers', data));
+    const {user} = this.props;
+    this.userService.getUsers().then(users => {
+      if (users.length > 0) {
+        console.log('getUsers', users);
+        this.setState({visibleUsers: users.filter(u => u.username != user.username)});
+      }
+    });
+  }
+
+  handleMenuClick = (e) => {
+    const user = this.state.visibleUsers[parseInt(e.key)];
+    this.setState({destUID: user._id});
   }
 
   componentDidMount() {
@@ -25,6 +37,7 @@ class Main extends Component {
   }
 
   render() {
+    const {visibleUsers, destUID} = this.state;
     return (
       <Layout id="MainComponent">
         <Sider
@@ -39,49 +52,27 @@ class Main extends Component {
 
           <MainHeader />
 
-          <Menu theme="light" mode="inline" defaultSelectedKeys={['3']}>
-            <Menu.Item key="1" className="chat-item-row">
-              <Row>
-                {/*<Col span={3}>
-                <Image width={50} src={defaultAvatar} />
-              </Col>*/}
-                <Col span={18} offset={1}>
-                  <span className="chat-item-user-name">James Neumann</span>
-                  <span className="chat-item-message">hey what&#39;s going on? - 10m</span>
-                </Col>
-              </Row>
-            </Menu.Item>
-            <Menu.Item key="2" className="chat-item-row">
-              <Row>
-                {/*<Col span={3}>
-                <Image width={50} src={defaultAvatar} />
-              </Col>*/}
-                <Col span={18} offset={1}>
-                  <span className="chat-item-user-name">James Neumann</span>
-                  <span className="chat-item-message unread">
-                  Sent a GIF from Tenor - 14m
-                    <div className="unread-circle"></div>
-                  </span>
-                </Col>
-              </Row>
-            </Menu.Item>
-            <Menu.Item key="3" className="chat-item-row">
-              <Row>
-                {/*<Col span={3}>
-                <Image width={50} src={defaultAvatar} />
-              </Col>*/}
-                <Col span={18} offset={1}>
-                  <span className="chat-item-user-name">James Neumann</span>
-                  <span className="chat-item-message">hey what&#39;s going on? - 10m</span>
-                </Col>
-              </Row>
-            </Menu.Item>
+          <Menu theme="light" mode="inline" onClick={e => this.handleMenuClick(e)}>
+            {visibleUsers.length > 0 ? (
+              visibleUsers.map((user, index) => {
+                return (
+                  <Menu.Item key={index} className="chat-item-row">
+                    <Row>
+                      <Col span={18} offset={1}>
+                        <span className="chat-item-user-name">{user.username}</span>
+                        {/*<span className="chat-item-message">hey what&#39;s going on? - 10m</span>*/}
+                      </Col>
+                    </Row>
+                  </Menu.Item>
+                )
+              })
+            ) : (<Empty />)}
           </Menu>
 
         </Sider>
 
         <Layout className="chat-screen-layout">
-          <ChatScreenWrapper />
+          <ChatScreenWrapper destUID={destUID} />
         </Layout>
 
       </Layout>

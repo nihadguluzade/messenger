@@ -22,12 +22,12 @@ class Login extends Component {
   authenticate = () => {
     const {signIn, history} = this.props;
     const {username, password} = this.state;
-    this.userService.getUser(username, password)
+    this.userService.authenticate(username, password)
       .then(res => {
         if (res.length == 0) {
           this.setState({errorMessage: 'Username or password is incorrect.'})
         } else {
-          signIn(res);
+          signIn(res[0]);
           this.setState({errorMessage: ''});
           history.push('/main');
         }

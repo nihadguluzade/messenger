@@ -3,7 +3,7 @@ import { Row, Col, Image, Input, Button } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import defaultAvatar from '../../assets/sample-avatar-female.png';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux'; 
+import { connect } from 'react-redux';
 
 const onSearch = value => console.log(value);
 
