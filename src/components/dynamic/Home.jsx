@@ -13,13 +13,12 @@ const Home = (props) => {
       <h2><strong>Messenger</strong></h2>
       <div className="actions-wrapper">
         <Button type="primary"><Link to="/login">Sign In</Link></Button>
-        <Button type="primary" onClick={() => signInAsAdmin(props)}>
+        {/*<Button type="primary" onClick={() => signInAsAdmin(props)}>
           <Link to="/main">Sign In As Admin</Link>
         </Button>
         <Button type="primary" onClick={() => signInAsDev(props)}>
           <Link to="/main">Sign In As Dev</Link>
-        </Button>
-        <Button><Link to="/main">Home</Link></Button>
+        </Button>*/}
       </div>
     </header>
   )

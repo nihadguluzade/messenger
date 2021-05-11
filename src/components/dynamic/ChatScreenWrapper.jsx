@@ -51,12 +51,8 @@ class ChatScreenWrapper extends Component {
       <>
         <ChatScreenHeader destUID={destUID} />
 
-        {/*<div>
-          <Button onClick={() => this.setState({destUID: 1}, this.refreshMessages)}>Chat with admin</Button>
-          <Button onClick={() => this.setState({destUID: 3}, this.refreshMessages)}>Chat with dev</Button>
-        </div>*/}
-
         {/* <ChatScreen /> */}
+
         <div id="ChatScreenComponent">
           <div className="container">
             {conversation.length > 0 && conversation.map((message, index) => {
