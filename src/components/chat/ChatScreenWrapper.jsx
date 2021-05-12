@@ -24,6 +24,7 @@ class ChatScreenWrapper extends Component {
     this.refreshMessages();
     socket.on('newMessage', function(data) {
       that.refreshMessages();
+      that.props.updateConversations();
     });
   }
 
