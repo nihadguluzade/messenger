@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Row, Col, Image, Input, Button } from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
-import defaultAvatar from '../../assets/sample-avatar-female.png';
+import defaultAvatar from '../assets/sample-avatar-female.png';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 

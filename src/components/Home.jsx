@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {Button} from "antd";
-import { signIn } from '../../redux/Actions';
+import { signIn } from '../redux/Actions';
 import { connect } from 'react-redux';
-import logo from '../../messenger-logo.png';
-import { User } from '../../models/User';
+import logo from '../messenger-logo.png';
+import { User } from '../models/User';
 
 const Home = (props) => {
   return (
@@ -24,7 +24,7 @@ const Home = (props) => {
   )
 }
 
-function signInAsAdmin(props) {
+/*function signInAsAdmin(props) {
   const {signIn} = props;
   const user = new User('admin@messenger.fb', 'admin', 'admin');
   user._id = 1;
@@ -36,7 +36,7 @@ function signInAsDev(props) {
   const user = new User('dev@messenger.fb', 'dev', 'dev');
   user._id = 3;
   signIn(user);
-}
+}*/
 
 function mapState(state) {
   return {

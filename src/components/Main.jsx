@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import {Layout, Menu, Row, Col, Image, Empty} from 'antd';
 import Sider from 'antd/lib/layout/Sider';
 import MainHeader from './MainHeader';
-import defaultAvatar from '../../assets/sample-avatar-female.png';
-import ChatScreenWrapper from '../dynamic/ChatScreenWrapper';
+import defaultAvatar from '../assets/sample-avatar-female.png';
+import ChatScreenWrapper from './chat/ChatScreenWrapper';
 import { connect } from 'react-redux';
-import UserService from "../../services/UserService";
+import UserService from "../services/UserService";
 
 class Main extends Component {
 
