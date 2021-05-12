@@ -22,11 +22,12 @@ const io = require('socket.io')(server, {
 io.on('connection', function (socket) {
   console.log('SocketIO connected');
 
-  const {roomId} = socket.handshake.query;
-  socket.join(roomId);
+  // const {roomId} = socket.handshake.query;
+  // socket.join(roomId);
 
   socket.on('msg', function(data) {
-    io.in(roomId).emit('newMessage', data);
+    // io.in(roomId).emit('newMessage', data);
+    io.sockets.emit('newMessage', data);
   });
 
   socket.on('disconnect', function() {
