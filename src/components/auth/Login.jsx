@@ -28,7 +28,7 @@ class Login extends Component {
           this.setState({errorMessage: 'Username or password is incorrect.'})
         } else {
           signIn(res[0]);
-          //this.saveLayoutToLS();
+          this.saveStateToLS();
           this.setState({errorMessage: ''});
           history.push('/main');
         }
@@ -36,22 +36,11 @@ class Login extends Component {
       .catch(console.error)
   }
 
-  saveLayoutToLS = (userId) => {
+  saveStateToLS = () => {
     if (global.localStorage) {
-      global.localStorage.setItem(user, userId);
+      console.log(this.props);
+      global.localStorage.setItem("state", JSON.stringify(this.props.user));
     }
-  }
-
-  getLayoutFromLS = (key) => {
-    let ls = {};
-    if (global.localStorage) {
-      try {
-        ls = JSON.parse(global.localStorage.getItem("user")) || {};
-      } catch (e) {
-        console.error(e);
-      }
-    }
-    return ls[key];
   }
 
   render() {

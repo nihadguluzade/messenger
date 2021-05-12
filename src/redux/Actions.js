@@ -1,6 +1,6 @@
 import * as userActionTypes from "./constants/UserActionTypes"
 
-export const logoutAction = () => {
+export const logout = () => {
   return { type: userActionTypes.LOGOUT };
 };
 

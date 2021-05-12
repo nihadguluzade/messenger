@@ -7,7 +7,28 @@ import { createStore } from 'redux';
 import { userReducer } from './redux/Reducers';
 import { Provider } from 'react-redux';
 
-const store = createStore(userReducer);
+const getStateFromLS = (key) => {
+  let state = {};
+  if (global.localStorage) {
+    try {
+      state = JSON.parse(global.localStorage.getItem(key)) || {};
+    } catch (e) {
+      console.error(e);
+    }
+  }
+  return state;
+}
+
+function preloadedState() {
+  const state = getStateFromLS("state");
+  if (state == undefined) {
+    return undefined;
+  } else {
+    return {user: state};
+  }
+}
+
+const store = createStore(userReducer, preloadedState());
 
 ReactDOM.render(
   <Provider store={store}>

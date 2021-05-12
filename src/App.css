@@ -79,12 +79,12 @@
   border-radius: 100%;
 }
 
-#MainComponent .chat-item-row {
+#MainComponent .chat-item-menu li.ant-menu-item {
   padding: 12px 12px;
   height: 72px;
 }
 
-#MainComponent .chat-item-row img {
+#MainComponent .chat-item-menu li.ant-menu-item img {
   border-radius: 100%;
 }
 

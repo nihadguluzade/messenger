@@ -79,11 +79,11 @@ class Main extends Component {
 
           <MainHeader />
 
-          <Menu theme="light" mode="inline" onClick={e => this.handleMenuClick(e)}>
+          <Menu theme="light" mode="inline" onClick={e => this.handleMenuClick(e)} className="chat-item-menu">
             {visibleUsers.length > 0 ? (
               visibleUsers.map((user, index) => {
                 return (
-                  <Menu.Item key={index} className="chat-item-row">
+                  <Menu.Item key={index}>
                     <Row>
                       <Col span={18} offset={1}>
                         <span className="chat-item-user-name">{user.username}</span>
@@ -95,7 +95,7 @@ class Main extends Component {
                   </Menu.Item>
                 )
               })
-            ) : (<Empty />)}
+            ) : (<Menu.Item><Empty /></Menu.Item>)}
           </Menu>
 
         </Sider>
