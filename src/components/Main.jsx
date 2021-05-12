@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import {Layout, Menu, Row, Col, Image, Empty} from 'antd';
-import Sider from 'antd/lib/layout/Sider';
 import MainHeader from './MainHeader';
 import defaultAvatar from '../assets/sample-avatar-female.png';
 import ChatScreenWrapper from './chat/ChatScreenWrapper';
 import { connect } from 'react-redux';
 import UserService from "../services/UserService";
 import MessageService from "../services/MessageService";
+
+const {Sider, Content} = Layout;
 
 class Main extends Component {
 
@@ -74,12 +75,7 @@ class Main extends Component {
         <Sider
           theme="light"
           width={380}
-          style={{
-            overflow: 'auto',
-            height: '100vh',
-            position: 'fixed',
-            left: 0,
-          }}>
+          style={{}}>
 
           <MainHeader />
 
@@ -105,7 +101,9 @@ class Main extends Component {
         </Sider>
 
         <Layout className="chat-screen-layout">
-          <ChatScreenWrapper destUID={destUID} updateConversations={this.getConversations} />
+          <Content>
+            <ChatScreenWrapper destUID={destUID} updateConversations={this.getConversations} />
+          </Content>
         </Layout>
 
       </Layout>
