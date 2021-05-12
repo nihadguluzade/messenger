@@ -123,7 +123,7 @@
 }
 
 #MainComponent .chat-screen-layout {
-  margin-left: 380px;
+  position: relative;
 }
 
 #MainComponent .ant-layout-sider {
@@ -175,6 +175,7 @@
   padding: 6px 16px;
   position: fixed;
   width: 100%;
+  border-bottom: 1px solid #dddddd;
 }
 
 #ChatScreenHeaderComponent .chat-dest-user {
@@ -196,19 +197,19 @@
 #ChatScreenComponent {
   background-color: #ffffff;
   height: 100vh;
-  padding: 24px 36px;
+  padding: 72px 36px 64px;
+  overflow: auto;
 }
 
 #ChatScreenComponent .container {
-  margin-top: 63px;
 }
 
 #ChatInputComponent {
   background-color: #ffffff;
   padding: 12px;
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 63%;
+  width: 100%;
 }
 
 #ChatInputComponent .op-btn .anticon {
@@ -255,4 +256,20 @@
   /*color: #000000;*/
   /* border-radius: 18px 18px 18px 2px; */
   border-radius: 18px;
+}
+
+.m-l-12 {
+  margin-left: 12px;
+}
+
+.m-r-12 {
+  margin-right: 12px;
+}
+
+.m-t-12 {
+  margin-top: 12px;
+}
+
+.m-b-12 {
+  margin-bottom: 12px;
 }

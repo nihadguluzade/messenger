@@ -22,11 +22,12 @@ const io = require('socket.io')(server, {
 io.on('connection', function (socket) {
   console.log('SocketIO connected');
 
-  const {roomId} = socket.handshake.query;
-  socket.join(roomId);
+  // const {roomId} = socket.handshake.query;
+  // socket.join(roomId);
 
   socket.on('msg', function(data) {
-    io.in(roomId).emit('newMessage', data);
+    // io.in(roomId).emit('newMessage', data);
+    io.sockets.emit('newMessage', data);
   });
 
   socket.on('disconnect', function() {
@@ -49,6 +50,22 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .then(results => {
         console.log("Got users");
         res.send(results);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/user/_id=:userId', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(value => req.params.userId == value._id)[0]);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/user/username=:username&password=:password', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(value => req.params.username == value.username && req.params.password == value.password));
       })
       .catch(console.error);
   });
@@ -77,7 +94,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   app.get('/api/messages', (req, res) => {
     messagesCollection.find().toArray()
       .then(results => {
-        console.log("Got messages");
         res.send(results);
       })
       .catch(console.error);
@@ -94,15 +110,21 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   });
 
   app.get('/api/conversation/u1id=:u1id&u2id=:u2id', (req, res) => {
-    console.log(req.params.u1id, req.params.u2id);
     messagesCollection.find().toArray()
       .then(result => {
-        console.log("Got conversation of length:", result.length);
         const filtered = result.filter(value => (
           (value.destUID == req.params.u1id && value.srcUID == req.params.u2id) ||
           (value.destUID == req.params.u2id && value.srcUID == req.params.u1id)
         ));
         res.send(filtered);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/conversations/uid=:uid', (req, res) => {
+    messagesCollection.find().toArray()
+      .then(results => {
+        res.send(results.filter(conversation => conversation.destUID == req.params.uid || conversation.srcUID == req.params.uid));
       })
       .catch(console.error);
   });
