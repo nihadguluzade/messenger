@@ -93,7 +93,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   app.get('/api/messages', (req, res) => {
     messagesCollection.find().toArray()
       .then(results => {
-        console.log("Got messages");
         res.send(results);
       })
       .catch(console.error);
@@ -117,6 +116,14 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
           (value.destUID == req.params.u2id && value.srcUID == req.params.u1id)
         ));
         res.send(filtered);
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/conversations/uid=:uid', (req, res) => {
+    messagesCollection.find().toArray()
+      .then(results => {
+        res.send(results.filter(conversation => conversation.destUID == req.params.uid || conversation.srcUID == req.params.uid));
       })
       .catch(console.error);
   });

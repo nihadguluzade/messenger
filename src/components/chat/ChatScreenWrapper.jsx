@@ -35,6 +35,7 @@ class ChatScreenWrapper extends Component {
 
   emitSent = (message) => {
     socket.emit('msg', message);
+    this.props.updateConversations();
   }
 
   refreshMessages = () => {
