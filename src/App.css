@@ -136,7 +136,8 @@
 }
 
 #MainComponent .chat-item-desc {
-  line-height: 30px;
+  line-height: 21px;
+  padding: 8px 0;
 }
 
 #MainComponent .chat-item-user-name {
@@ -208,8 +209,14 @@
   background-color: #f2f2f2;
 }
 
+#MainHeaderComponent .header-logo {
+  width: 22px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
 #MainHeaderComponent .ant-row {
-  padding: 24px 12px;
+  padding: 24px;
 }
 
 #MainHeaderComponent .ant-row:last-child {
@@ -222,6 +229,12 @@
 
 #MainHeaderComponent .app-heading {
   text-align: left;
+  font-weight: 300;
+}
+
+#MainHeaderComponent .header-right {
+  float: right;
+  line-height: 65px;
 }
 
 #MainHeaderComponent .edit-icon {
@@ -241,9 +254,25 @@
 #ChatScreenHeaderComponent {
   background-color: #ffffff;
   padding: 6px 16px;
-  position: fixed;
+  position: absolute;
+  top: 0;
   width: 100%;
   border-bottom: 1px solid #dddddd;
+}
+
+#ChatScreenHeaderComponent .chat-options {
+  float: right;
+  margin-right: 16px;
+}
+
+#ChatScreenHeaderComponent .chat-avatar {
+  display: inline-block;
+  margin-right: 12px;
+}
+
+#ChatScreenHeaderComponent .chat-avatar img {
+  width: 36px;
+  border-radius: 50%;
 }
 
 #ChatScreenHeaderComponent .chat-dest-user {
@@ -278,6 +307,7 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  border-top: 1px solid #e3e3e3;
 }
 
 #ChatInputComponent .op-btn .anticon {
@@ -295,35 +325,55 @@
   border-radius: 20px;
 }
 
-#BubbleComponent .bubble-wrapper {
+.bubble-component .bubble-wrapper {
   margin: 10px 0;
   width: 100%;
 }
 
-#BubbleComponent .bubble-wrapper.sender {
+.bubble-component .bubble-wrapper.sender {
   float: right;
   text-align: right;
 }
 
-#BubbleComponent .bubble-wrapper.receiver {
+.bubble-component .bubble-wrapper.receiver {
   float: left;
   text-align: left;
 }
 
-#BubbleComponent .bubble-sender {
+.bubble-component [class*="sender-"] {
   background-color: rgb(0, 143, 255);
   padding: 10px 12px;
   color: #ffffff;
-  /* border-radius: 18px 18px 2px; */
-  border-radius: 18px;
 }
 
-#BubbleComponent .bubble-receiver {
+.bubble-component [class*="receiver-"] {
   background-color: #f5f5f5;
   padding: 10px 12px;
-  /*color: #000000;*/
-  /* border-radius: 18px 18px 18px 2px; */
+}
+
+.bubble-component .sender-default {
   border-radius: 18px;
+}
+.bubble-component .sender-start {
+   border-radius: 18px 18px 2px 18px;
+}
+.bubble-component .sender-middle {
+  border-radius: 18px 2px 2px 18px;
+}
+.bubble-component .sender-end {
+  border-radius: 18px 2px 18px 18px;
+}
+.bubble-component .receiver-default {
+  border-radius: 18px;
+}
+.bubble-component .receiver-start {
+  border-radius: 18px 18px 18px 2px;
+}
+.bubble-component .receiver-middle {
+  border-radius: 2px 18px 18px 2px;
+}
+.bubble-component .receiver-end {
+  border-radius: 2px 18px 18px 18px;
 }
 
 .m-l-12 {

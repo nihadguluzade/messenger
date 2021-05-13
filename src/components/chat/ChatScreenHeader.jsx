@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Row, Col, Image, Dropdown, Menu } from 'antd';
-import { EllipsisOutlined } from '@ant-design/icons';
-import defaultAvatar from '../../assets/sample-avatar-female.png';
+import { EllipsisOutlined, SettingOutlined } from '@ant-design/icons';
+import defaultAvatar from '../../assets/avatar.png';
 import UserService from "../../services/UserService";
 
 class ChatScreenHeader extends Component {
@@ -38,12 +38,12 @@ class ChatScreenHeader extends Component {
     const settings = (
       <Menu>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+          <a>
             Contact info
           </a>
         </Menu.Item>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+          <a>
             Block user
           </a>
         </Menu.Item>
@@ -57,15 +57,20 @@ class ChatScreenHeader extends Component {
             {/*<Col span={2}>
               <Image className="image-circle" width={45} src={defaultAvatar} />
             </Col>*/}
-            <Col span={11}>
+            <Col span={18}>
+              <div className="chat-avatar">
+                <img src={defaultAvatar} />
+              </div>
               <span className="chat-dest-user">{user.username}</span>
             </Col>
-            <Col span={2}>
-              <Dropdown overlay={settings} trigger={['click']}>
-                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                  <EllipsisOutlined className="chat-settings" />
-                </a>
-              </Dropdown>
+            <Col span={6}>
+              <div className="chat-options">
+                <Dropdown overlay={settings} trigger={['click']}>
+                  <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                    <SettingOutlined className="chat-settings" />
+                  </a>
+                </Dropdown>
+              </div>
             </Col>
           </Row>
         ) : (<div />)}

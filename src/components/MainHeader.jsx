@@ -5,6 +5,7 @@ import defaultAvatar from '../assets/sample-avatar-female.png';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {logout} from "../redux/Actions";
+import logo from '../messenger-logo.png';
 
 const onSearch = value => console.log(value);
 
@@ -28,11 +29,18 @@ class MainHeader extends Component {
             <Image width={40} className="avatar" src={defaultAvatar}/>
           </Col>*/}
           <Col span={11}>
-            <h2 className="app-heading"><strong>Messenger</strong></h2>
-            <span>{user.username}</span>
+            <h2 className="app-heading">
+              <img src={logo} className="header-logo"/>
+              Messenger
+            </h2>
+            <span>Welcome, {user.username}</span>
           </Col>
-          <Col span={5} offset={1}>
-            <Button icon={<LogoutOutlined/>} onClick={() => this.handleLogout()}/>
+          <Col span={12} offset={1}>
+            <div className="header-right">
+              <Button type="link" style={{fontWeight: 700}} onClick={() => this.handleLogout()}>
+                Log Out
+              </Button>
+            </div>
           </Col>
         </Row>
         <Row>
