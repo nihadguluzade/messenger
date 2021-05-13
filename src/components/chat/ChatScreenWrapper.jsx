@@ -19,12 +19,16 @@ class ChatScreenWrapper extends Component {
 
   messageService = new MessageService();
 
+  charScrollRef = React.createRef();
+
   componentDidMount() {
     const that = this;
     this.refreshMessages();
+    this.scrollToBottom();
     socket.on('newMessage', function(data) {
       that.refreshMessages();
       that.props.updateConversations();
+      that.scrollToBottom();
     });
   }
 
@@ -32,6 +36,7 @@ class ChatScreenWrapper extends Component {
     if (prevProps.destUID != this.props.destUID) {
       this.refreshMessages();
     }
+    this.scrollToBottom();
   }
 
   emitSent = (message) => {
@@ -45,6 +50,10 @@ class ChatScreenWrapper extends Component {
     this.messageService.getConversation(destUID, user._id)
       .then(conversation => this.setState({ conversation }))
       .catch(console.error);
+  }
+
+  scrollToBottom = () => {
+    this.charScrollRef.current?.scrollIntoView({behavior: 'auto'});
   }
 
   render() {
@@ -69,6 +78,7 @@ class ChatScreenWrapper extends Component {
                 <Bubble key={index} type={type} message={message.content} />
               )
             })}
+            <div className="ant-row" ref={this.charScrollRef} />
           </div>
         </div>
 
