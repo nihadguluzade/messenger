@@ -18,6 +18,22 @@ class UserService extends Component {
     return responseBody;
   }
 
+  async getUserByEmail(email) {
+    const response = await fetch(`/api/user/email=${email}`);
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
+  async getUserByUsername(username) {
+    const response = await fetch(`/api/user/username=${username}`);
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
   async authenticate(username, password) {
     const response = await fetch(`/api/user/username=${username}&password=${password}`);
     const responseBody = await response.json();

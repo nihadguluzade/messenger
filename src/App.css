@@ -115,6 +115,12 @@
   border-color: #4d4dff;
 }
 
+.home .ant-form-item-explain.ant-form-item-explain-error {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+}
+
 #MainComponent .chat-item-menu li.ant-menu-item {
   padding: 12px 12px;
   height: 72px;

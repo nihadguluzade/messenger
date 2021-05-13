@@ -22,9 +22,9 @@ const Home = (props) => {
         </Col>
         <Col span={12}>
           {mode == "login" ? (
-            <Login register={setMode} />
+            <Login switchTo={setMode} />
           ) : (
-            <Register login={setMode} />
+            <Register switchTo={setMode} />
           )}
         </Col>
       </Row>

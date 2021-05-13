@@ -331,7 +331,7 @@ mark {
 }
 .anticon {
   display: inline-block;
-  color: #313739;
+  color: inherit;
   font-style: normal;
   line-height: 0;
   text-align: center;
@@ -1332,14 +1332,14 @@ html {
   transition: color 0.3s;
 }
 .ant-alert-close-icon .anticon-close:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(49, 55, 57, 0.75);
 }
 .ant-alert-close-text {
   color: rgba(49, 55, 57, 0.45);
   transition: color 0.3s;
 }
 .ant-alert-close-text:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(49, 55, 57, 0.75);
 }
 .ant-alert-with-description {
   align-items: flex-start;
@@ -5365,7 +5365,7 @@ a.ant-btn-sm {
   content: '';
 }
 .ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
-  color: #313739;
+  color: inherit;
   font-style: normal;
   line-height: 0;
   text-align: center;
@@ -6996,7 +6996,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 .ant-drawer-close:focus,
 .ant-drawer-close:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(49, 55, 57, 0.75);
   text-decoration: none;
 }
 .ant-drawer-header-no-title .ant-drawer-close {
@@ -14580,7 +14580,7 @@ textarea.ant-input-number {
 .ant-input-number-handler-up-inner,
 .ant-input-number-handler-down-inner {
   display: inline-block;
-  color: #313739;
+  color: inherit;
   font-style: normal;
   line-height: 0;
   text-align: center;
@@ -16493,7 +16493,7 @@ textarea.ant-mentions {
 }
 .ant-modal-close:focus,
 .ant-modal-close:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(49, 55, 57, 0.75);
   text-decoration: none;
 }
 .ant-modal-header {
@@ -18577,7 +18577,7 @@ span.ant-radio + * {
   text-overflow: ellipsis;
 }
 .ant-select-multiple .ant-select-selection-item-remove {
-  color: #313739;
+  color: inherit;
   font-style: normal;
   line-height: 0;
   text-align: center;
@@ -18609,7 +18609,7 @@ span.ant-radio + * {
   vertical-align: -0.2em;
 }
 .ant-select-multiple .ant-select-selection-item-remove:hover {
-  color: rgba(255, 255, 255, 0.75);
+  color: rgba(49, 55, 57, 0.75);
 }
 .ant-select-multiple .ant-select-selection-overflow-item + .ant-select-selection-overflow-item .ant-select-selection-search {
   margin-inline-start: 0;
@@ -18790,7 +18790,7 @@ span.ant-radio + * {
 }
 .ant-select-arrow {
   display: inline-block;
-  color: #313739;
+  color: inherit;
   font-style: normal;
   line-height: 0;
   text-transform: none;

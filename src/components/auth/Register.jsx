@@ -9,14 +9,38 @@ class Register extends Component {
   state = {
     email: '',
     username: '',
-    password: ''
+    password: '',
+    emailStatus: '',
+    usernameStatus: ''
   }
 
   userService = new UserService();
 
-  render() {
-    const {login} = this.props;
+  handleRegister = () => {
+    const {switchTo} = this.props;
+    const {email, username, password, emailStatus, usernameStatus} = this.state;
+    if (this.checkInputs) {
+      if (emailStatus != "error" && usernameStatus != "error") {
+        const newUser = new User(email, username, password);
+        this.userService.saveUser(newUser);
+        message.success('Welcome to the club!');
+        switchTo("login");
+      }
+    }
+  }
+
+  checkInputs = () => {
     const {email, username, password} = this.state;
+    if (email == undefined || username == undefined || password == undefined || email.length == 0 ||
+      username.length == 0 || password.length == 0) {
+      return false;
+    }
+    return true;
+  }
+
+  render() {
+    const {switchTo} = this.props;
+    const {email, username, password, emailStatus, usernameStatus} = this.state;
 
     return (
       <div className="App-header">
@@ -26,24 +50,60 @@ class Register extends Component {
 
           <Form onFinish={this.handleRegister} className="register-form" layout="horizontal">
 
-            <Form.Item label="Email" name="email"
+            <Form.Item
+              label="Email"
+              name="email"
+              hasFeedback
+              validateStatus={emailStatus}
+              help={emailStatus == "error" && "This email is in use"}
               rules={[
                 {
                   required: true,
                   message: "Email is required"
                 },
               ]}>
-              <Input placeholder="email" type="email" value={email} onChange={e => this.setState({email: e.target.value})} />
+              <Input placeholder="email"
+                type="email"
+                value={email}
+                onBlur={() => {
+                  this.userService.getUserByEmail(email)
+                    .then(res => {
+                      if (res.length == 0) {
+                        this.setState({emailStatus: "success"});
+                      } else {
+                        this.setState({emailStatus: "error"});
+                      }
+                    })
+                }}
+                onChange={e => this.setState({email: e.target.value})} />
             </Form.Item>
 
-            <Form.Item label="Username" name="username"
+            <Form.Item
+              label="Username"
+              name="username"
+              hasFeedback
+              validateStatus={usernameStatus}
+              help={usernameStatus == "error" && "Sorry, this username is taken"}
               rules={[
                 {
                   required: true,
                   message: "Username is required"
                 },
               ]}>
-              <Input placeholder="username" value={username} onChange={e => this.setState({username: e.target.value})} />
+              <Input placeholder="username"
+                value={username}
+                onBlur={() => {
+                  this.userService.getUserByUsername(username)
+                    .then(res => {
+                      if (res.length == 0) {
+                        this.setState({usernameStatus: "success"});
+                      } else {
+                        this.setState({usernameStatus: "error"});
+                      }
+                    })
+                    .catch(console.error);
+                }}
+                onChange={e => this.setState({username: e.target.value})} />
             </Form.Item>
 
             <Form.Item label="Password" name="password"
@@ -60,7 +120,7 @@ class Register extends Component {
               <Button type="primary" htmlType="submit" className="register-form-submit-btn">
                 Create Account
               </Button>
-              <Button type="link" className="register-form-cancel-btn" onClick={() => login("login")}>
+              <Button type="link" className="register-form-cancel-btn" onClick={() => switchTo("login")}>
                 Cancel
               </Button>
             </Form.Item>
@@ -69,24 +129,6 @@ class Register extends Component {
         </div>
       </div>
     )
-  }
-
-  handleRegister = () => {
-    const {email, username, password} = this.state;
-    if (this.checkInputs) {
-      const newUser = new User(email, username, password);
-      this.userService.saveUser(newUser);
-      message.success('Welcome to the club!');
-    }
-  }
-
-  checkInputs = () => {
-    const {email, username, password} = this.state;
-    if (email == undefined || username == undefined || password == undefined || email.length == 0 ||
-      username.length == 0 || password.length == 0) {
-      return false;
-    }
-    return true;
   }
 }
 

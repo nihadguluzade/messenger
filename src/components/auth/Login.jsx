@@ -21,8 +21,8 @@ class Login extends Component {
 
   authenticate = () => {
     const {signIn, history} = this.props;
-    console.log('auth', this.props);
     const {username, password} = this.state;
+
     this.userService.authenticate(username, password)
       .then(res => {
         if (res.length == 0) {
@@ -45,7 +45,7 @@ class Login extends Component {
   }
 
   render() {
-    const {register} = this.props;
+    const {switchTo} = this.props;
     const {errorMessage} = this.state;
     return (
       <div className="App-header">
@@ -80,7 +80,7 @@ class Login extends Component {
             <Button type="primary" htmlType="submit" className="login-form-submit-btn">
               Log In
             </Button>
-            <Button type="link" className="login-form-register-link" onClick={() => register("register")}>Create an account</Button>
+            <Button type="link" className="login-form-register-link" onClick={() => switchTo("register")}>Create an account</Button>
           </Form.Item>
 
         </Form>
