@@ -1,25 +1,33 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import {Button} from "antd";
+import {Button, Col, Row} from "antd";
 import { signIn } from '../redux/Actions';
 import { connect } from 'react-redux';
 import logo from '../messenger-logo.png';
 import { User } from '../models/User';
+import Login from "./auth/Login";
+import Register from "./auth/Register";
 
 const Home = (props) => {
+  const [mode, setMode] = useState("login");
+
   return (
-    <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <h2><strong>Messenger</strong></h2>
-      <div className="actions-wrapper">
-        <Button type="primary"><Link to="/login">Sign In</Link></Button>
-        {/*<Button type="primary" onClick={() => signInAsAdmin(props)}>
-          <Link to="/main">Sign In As Admin</Link>
-        </Button>
-        <Button type="primary" onClick={() => signInAsDev(props)}>
-          <Link to="/main">Sign In As Dev</Link>
-        </Button>*/}
-      </div>
+    <header className="home App-header">
+      <Row style={{width: "100%"}}>
+        <Col span={12}>
+          <div className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <span className="home-title">Messenger</span>
+          </div>
+        </Col>
+        <Col span={12}>
+          {mode == "login" ? (
+            <Login register={setMode} />
+          ) : (
+            <Register login={setMode} />
+          )}
+        </Col>
+      </Row>
     </header>
   )
 }

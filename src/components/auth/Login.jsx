@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import {Form, Input, Button, message, Alert} from 'antd';
 import UserService from "../../services/UserService";
 import {signIn} from "../../redux/Actions";
@@ -21,6 +21,7 @@ class Login extends Component {
 
   authenticate = () => {
     const {signIn, history} = this.props;
+    console.log('auth', this.props);
     const {username, password} = this.state;
     this.userService.authenticate(username, password)
       .then(res => {
@@ -44,6 +45,7 @@ class Login extends Component {
   }
 
   render() {
+    const {register} = this.props;
     const {errorMessage} = this.state;
     return (
       <div className="App-header">
@@ -76,14 +78,13 @@ class Login extends Component {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" className="login-form-submit-btn">
-              Sign in
+              Log In
             </Button>
-            <Link to="/register" className="login-form-register-link">Create an account</Link>
+            <Button type="link" className="login-form-register-link" onClick={() => register("register")}>Create an account</Button>
           </Form.Item>
 
         </Form>
 
-        <Link to="/">Home</Link>
       </div>
     )
   }
@@ -97,4 +98,4 @@ function mapState(state) {
 
 const mapDispatch = {signIn: signIn}
 
-export default connect(mapState, mapDispatch)(Login);
+export default connect(mapState, mapDispatch)(withRouter(Login));
