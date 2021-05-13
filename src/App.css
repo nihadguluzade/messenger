@@ -5,7 +5,7 @@
 }
 
 .App-logo {
-  height: 15vmin;
+  height: 12vmin;
   margin-bottom: 25px;
   pointer-events: none;
 }
@@ -51,10 +51,24 @@
 }
 
 .login-form .login-form-submit-btn {
-  width: 100%;
+  font-weight: 700;
+  border-radius: 24px;
+  float: left;
 }
 
 .login-form .login-form-register-link {
+  float: right;
+}
+
+.register-container {
+
+}
+
+.register-container .register-title {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: bold;
+  color: #313739;
 }
 
 .login-form label,
@@ -72,11 +86,39 @@
 }
 
 .register-form .register-form-submit-btn {
-  margin-left: 15px !important;
+  font-weight: 700;
+  border-radius: 24px;
+  float: left;
+}
+
+.register-form .register-form-cancel-btn {
+  float: right;
 }
 
 .image-circle {
   border-radius: 100%;
+}
+
+.home .home-title {
+  color: #313739;
+  font-weight: 200;
+  font-size: 37px;
+}
+
+.home .ant-input {
+  height: 36px;
+  border-radius: 6px;
+}
+
+.home .ant-btn-primary:hover {
+  background-color: #4d4dff;
+  border-color: #4d4dff;
+}
+
+.home .ant-form-item-explain.ant-form-item-explain-error {
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
 }
 
 #MainComponent .chat-item-menu li.ant-menu-item {

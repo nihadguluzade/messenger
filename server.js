@@ -70,6 +70,22 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
+  app.get('/api/user/username=:username', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(value => req.params.username == value.username));
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/user/email=:email', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(value => req.params.email == value.email));
+      })
+      .catch(console.error);
+  });
+
   app.put('/api/users', (req, res) => {
     console.log(req.body);
     req.body._id = new ObjectId(req.body._id);
