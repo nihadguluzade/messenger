@@ -124,6 +124,8 @@ class ChatScreenWrapper extends Component {
                     currentType = "sender-start";
                   } else if (nextType == "sender" && prevType == "receiver-start") {
                     currentType = "receiver-end";
+                  } else if (nextType == "receiver" && prevType == "sender-default") {
+                    currentType = "receiver-start";
                   }
                 }
               }
