@@ -59,6 +59,9 @@ class ChatScreenWrapper extends Component {
   render() {
     const { destUID } = this.props;
     const { conversation } = this.state;
+    let currentType;
+    let prevType;
+    let nextType;
     return (
       <>
         <ChatScreenHeader destUID={destUID} />
@@ -68,14 +71,67 @@ class ChatScreenWrapper extends Component {
         <div id="ChatScreenComponent">
           <div className="container">
             {conversation.length > 0 && conversation.map((message, index) => {
-              let type;
-              if (message.srcUID == this.props.user._id) {
-                type = "sender";
-              } else {
-                type = "receiver";
+
+              if (index <= conversation.length - 1) {
+
+                if (message.srcUID == this.props.user._id) {
+                  currentType = "sender-default";
+                } else {
+                  currentType = "receiver-default";
+                }
+
+                if (index == conversation.length - 1) {
+                  if (prevType == "sender-start" || prevType == "sender-middle") {
+                    currentType = "sender-end";
+                  } else if (prevType == "sender-end" || prevType == "sender-default") {
+                    currentType = "receiver-default";
+                  } else if (prevType == "receiver-start" || prevType == "receiver-middle") {
+                    currentType = "receiver-end";
+                  } else if (prevType == "receiver-end" || prevType == "receiver-default") {
+                    currentType = "sender-default";
+                  }
+
+                } else {
+                  if (conversation[index + 1].srcUID == this.props.user._id) {
+                    nextType = "sender";
+                  } else {
+                    nextType = "receiver";
+                  }
+
+                  if (nextType == "sender" && prevType == undefined) {
+                    currentType = "sender-start";
+                  } else if (nextType == "sender" && prevType == "sender-start") {
+                    currentType = "sender-middle";
+                  } else if (nextType == "sender" && prevType == "sender-middle") {
+                    currentType = "sender-middle";
+                  } else if (nextType == "receiver" && prevType == "sender-middle") {
+                    currentType = "sender-end";
+                  } else if (nextType == "receiver" && prevType == "sender-end") {
+                    currentType = "receiver-start";
+                  } else if (nextType == "receiver" && prevType == "receiver-start") {
+                    currentType = "receiver-middle";
+                  } else if (nextType == "receiver" && prevType == "receiver-middle") {
+                    currentType = "receiver-middle";
+                  } else if (nextType == "receiver" && prevType == undefined) {
+                    currentType = "receiver-start";
+                  } else if (nextType == "receiver" && prevType == "sender-start") {
+                    currentType = "sender-end";
+                  } else if (nextType == "sender" && prevType == "receiver-middle") {
+                    currentType = "receiver-end";
+                  } else if (nextType == "sender" && prevType == "receiver-end") {
+                    currentType = "sender-start";
+                  } else if (nextType == "sender" && prevType == "receiver-default") {
+                    currentType = "sender-start";
+                  } else if (nextType == "sender" && prevType == "receiver-start") {
+                    currentType = "receiver-end";
+                  }
+                }
               }
+
+              prevType = currentType;
+
               return (
-                <Bubble key={index} type={type} message={message.content} />
+                <Bubble key={index} type={currentType} message={message.content} />
               )
             })}
             <div className="ant-row" ref={this.charScrollRef} />

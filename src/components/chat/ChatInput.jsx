@@ -30,19 +30,20 @@ class ChatInput extends Component {
     return (
       <div id="ChatInputComponent">
         <Row>
-          <Col span={1}>
+          {/*<Col span={1}>
             <Button
               className="op-btn"
               type="primary"
               shape="circle"
               icon={<PlusOutlined className="add-option" />} />
-          </Col>
+          </Col>*/}
           <Col span={19} offset={1}>
             <Input
               className="chat-input"
               placeholder="Type a message..."
               value={this.state.message}
               onChange={this.handleChange}
+              onPressEnter={this.send}
             />
           </Col>
           <Col span={1} offset={1}>

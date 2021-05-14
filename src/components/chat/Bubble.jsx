@@ -7,22 +7,13 @@ function Bubble(props) {
   const { type, message } = props;
 
   return (
-    <span id="BubbleComponent">
+    <span className="bubble-component">
       <Row>
-        { type == 'sender' ?
-
-          <div className="bubble-wrapper sender">
-            <span className="bubble-sender">
-              <span>{message}</span>
-            </span>
-          </div>
-          :
-          <div className="bubble-wrapper receiver">
-            <span className="bubble-receiver">
-              <span>{message}</span>
-            </span>
-          </div>
-        }
+        <div className={`bubble-wrapper ${type.split('-')[0]}`}>
+          <span className={type}>
+            <span>{message}</span>
+          </span>
+        </div>
       </Row>
     </span>
   )

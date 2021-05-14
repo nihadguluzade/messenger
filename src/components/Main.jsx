@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 import {Layout, Menu, Row, Col, Image, Empty} from 'antd';
 import MainHeader from './MainHeader';
-import defaultAvatar from '../assets/sample-avatar-female.png';
+import defaultAvatar from '../assets/avatar.png';
 import ChatScreenWrapper from './chat/ChatScreenWrapper';
 import { connect } from 'react-redux';
 import UserService from "../services/UserService";
@@ -85,11 +85,16 @@ class Main extends Component {
                 return (
                   <Menu.Item key={index}>
                     <Row>
-                      <Col span={18} offset={1}>
-                        <span className="chat-item-user-name">{user.username}</span>
-                        {conversations.length > 0 && conversations.filter(c => c.user == user._id).length > 0 ? (
-                          <span className="chat-item-message">{conversations.filter(c => c.user == user._id)[0].lastMessage}</span>
-                        ) : (<span />)}
+                      <Col span={18} offset={0}>
+                        <div className="chat-item-avatar">
+                          <img src={defaultAvatar} style={{width: 55}} />
+                        </div>
+                        <div className="chat-item-desc">
+                          <span className="chat-item-user-name">{user.username}</span>
+                          {conversations.length > 0 && conversations.filter(c => c.user == user._id).length > 0 ? (
+                            <span className="chat-item-message">{conversations.filter(c => c.user == user._id)[0].lastMessage}</span>
+                          ) : (<span />)}
+                        </div>
                       </Col>
                     </Row>
                   </Menu.Item>
