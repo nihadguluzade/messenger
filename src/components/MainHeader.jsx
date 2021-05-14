@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {logout} from "../redux/Actions";
 import logo from '../messenger-logo.png';
+import ThemeToggler from "./ThemeToggler";
 
 const onSearch = value => console.log(value);
 
@@ -37,7 +38,8 @@ class MainHeader extends Component {
           </Col>
           <Col span={12} offset={1}>
             <div className="header-right">
-              <Button type="link" style={{fontWeight: 700}} onClick={() => this.handleLogout()}>
+              <ThemeToggler />
+              <Button type="link" className="logout-btn" onClick={() => this.handleLogout()}>
                 Log Out
               </Button>
             </div>

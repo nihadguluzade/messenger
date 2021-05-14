@@ -1,5 +1,55 @@
 @import "./theme.css";
 
+.theme-light {
+  --dark-text: #000000;
+  --light-text: #F9F8F8;
+  --dark-background: #f1f1f1;
+  --light-background: #f1f1f1;
+  --accent: #B8DBD9;
+  --button-border: #B8DBD9;
+
+  --dark-title-text: #313739;
+
+  --light-form-background: #ffffff;
+  --light-form-border: #d9d9d9;
+  --light-form-color: rgba(49, 55, 57, 0.85);
+}
+
+.theme-dark {
+  --dark-text: #ffffff;
+  --light-text: #5E4B56;
+
+  --dark-background: #0d0014;
+  --light-background: #141414;
+
+  --accent: #DBE7E4;
+  --button-border: #5E4B56;
+
+  --dark-title-text: #ffffff;
+
+  --light-form-background: transparent;
+  --light-form-border: #434343;
+  --light-form-color: rgba(255, 255, 255, 0.65);
+}
+
+.toggle-container {
+  display: grid;
+  place-items: center;
+  position: relative;
+  grid-area: toggle;
+  margin-bottom: 6px;
+}
+
+html body {
+  background-color: var(--light-background);
+}
+
+#root .ant-input {
+  color: var(--light-form-color);
+  background-color: var(--light-form-background);
+  border-color: var(--light-form-border);
+}
+
 .App {
   min-height: 100vh;
 }
@@ -68,12 +118,12 @@
   display: block;
   margin-bottom: 12px;
   font-weight: bold;
-  color: #313739;
+  color: var(--dark-title-text);
 }
 
 .login-form label,
 .register-form label {
-  color: #000000 !important;
+  color: var(--dark-text) !important;
 }
 
 .register-form input {
@@ -100,7 +150,7 @@
 }
 
 .home .home-title {
-  color: #313739;
+  color: var(--dark-title-text);
   font-weight: 200;
   font-size: 37px;
 }
@@ -216,7 +266,7 @@
 }
 
 #MainHeaderComponent .ant-row {
-  padding: 24px;
+  padding: 24px 24px 12px;
 }
 
 #MainHeaderComponent .ant-row:last-child {
@@ -234,7 +284,12 @@
 
 #MainHeaderComponent .header-right {
   float: right;
-  line-height: 65px;
+  padding: 6px 0;
+}
+
+#MainHeaderComponent .header-right .logout-btn {
+  font-weight: 700;
+  padding: 8px 15px;
 }
 
 #MainHeaderComponent .edit-icon {
