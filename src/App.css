@@ -268,6 +268,8 @@
 #ChatScreenHeaderComponent .chat-avatar {
   display: inline-block;
   margin-right: 12px;
+  line-height: 48px;
+  float: left;
 }
 
 #ChatScreenHeaderComponent .chat-avatar img {
@@ -275,11 +277,34 @@
   border-radius: 50%;
 }
 
+#ChatScreenHeaderComponent .chat-desc-wrapper {
+  display: block;
+  max-width: 100px;
+  float: left;
+  line-height: 17px;
+  margin-top: 8px;
+}
+
 #ChatScreenHeaderComponent .chat-dest-user {
   font-size: 16px;
   color: #000000;
-  line-height: 3;
   font-weight: bold;
+  width: 100%;
+  float: left;
+}
+
+#ChatScreenHeaderComponent .chat–status {
+  float: left;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+#ChatScreenHeaderComponent .chat–status.online {
+  color: #389e0d;
+}
+
+#ChatScreenHeaderComponent .chat–status.offline {
+  color: #9a9a9a;
 }
 
 #ChatScreenHeaderComponent .chat-settings {

@@ -6,10 +6,7 @@ import Bubble from './Bubble';
 import MessageService from '../../services/MessageService';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
-import socketIOClient from "socket.io-client";
-
-const SERVER_ENDPOINT = "http://127.0.0.1:5000"
-const socket = socketIOClient(SERVER_ENDPOINT);
+import socketIOClient, { io } from "socket.io-client";
 
 class ChatScreenWrapper extends Component {
 
@@ -21,15 +18,35 @@ class ChatScreenWrapper extends Component {
 
   charScrollRef = React.createRef();
 
-  componentDidMount() {
-    const that = this;
-    this.refreshMessages();
-    this.scrollToBottom();
+  SERVER_ENDPOINT = "http://127.0.0.1:5000"
+
+  socket = io(this.SERVER_ENDPOINT, {
+    query: {userId: this.props.user._id}
+  });
+
+  prepareSocket = (socket) => {
+    socket.on("online", (userId) => {
+      console.log(userId, "is online");
+      this.setState({status: "Online"});
+    });
+
+    socket.on("offline", (userId) => {
+      console.log(userId, "is offline");
+      this.setState({status: "Offline"});
+    });
+
     socket.on('newMessage', function(data) {
       that.refreshMessages();
       that.props.updateConversations();
       that.scrollToBottom();
     });
+  }
+
+  componentDidMount() {
+    const that = this;
+    this.refreshMessages();
+    this.scrollToBottom();
+    this.prepareSocket(this.socket);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -64,7 +81,7 @@ class ChatScreenWrapper extends Component {
     let nextType;
     return (
       <>
-        <ChatScreenHeader destUID={destUID} />
+        <ChatScreenHeader destUID={destUID} socket={this.socket} />
 
         {/* <ChatScreen /> */}
 

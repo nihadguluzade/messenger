@@ -7,7 +7,8 @@ import UserService from "../../services/UserService";
 class ChatScreenHeader extends Component {
 
   state = {
-    user: undefined
+    user: undefined,
+    status: 'Offline'
   }
 
   userService = new UserService();
@@ -24,17 +25,27 @@ class ChatScreenHeader extends Component {
   }
 
   componentDidMount() {
+    const {socket} = this.props;
+    const that = this;
+    socket.on("statusReport", function(data) {
+      if (data == null) {
+        that.setState({status: "Offline"});
+      } else {
+        that.setState({status: "Online"});
+      }
+    })
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {destUID} = this.props;
+    const {destUID, socket} = this.props;
     if (destUID != prevProps.destUID) {
       this.getUser();
+      socket.emit("statusRequest", destUID);
     }
   }
 
   render() {
-    const {user} = this.state;
+    const {user, status} = this.state;
     const settings = (
       <Menu>
         <Menu.Item>
@@ -61,7 +72,10 @@ class ChatScreenHeader extends Component {
               <div className="chat-avatar">
                 <img src={defaultAvatar} />
               </div>
-              <span className="chat-dest-user">{user.username}</span>
+              <div className="chat-desc-wrapper">
+                <span className="chat-dest-user">{user.username}</span>
+                <span className="chat–status offline">{status}</span>
+              </div>
             </Col>
             <Col span={6}>
               <div className="chat-options">

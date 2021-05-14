@@ -19,19 +19,39 @@ const io = require('socket.io')(server, {
   }
 });
 
-io.on('connection', function (socket) {
-  console.log('SocketIO connected');
+let users = {};
+const _ = require("lodash");
 
-  // const {roomId} = socket.handshake.query;
-  // socket.join(roomId);
+io.on('connection', function (socket) {
+
+  const socketId = socket.id;
+  let userId = socket.handshake.query.userId;
+  console.log(userId, 'connected');
+
+  if (!users[userId]) users[userId] = [];
+
+  users[userId].push(socket.id);
+
+  io.sockets.emit("online", userId);
 
   socket.on('msg', function(data) {
-    // io.in(roomId).emit('newMessage', data);
     io.sockets.emit('newMessage', data);
   });
 
+  socket.on('statusRequest', function(data) {
+    io.to(socketId).emit('statusReport', users[data]);
+  })
+
   socket.on('disconnect', function() {
-    console.log('SocketIO disconnected');
+    _.remove(users[userId], (u) => u == socket.id);
+
+    if (users[userId].length == 0) {
+      io.sockets.emit("offline", userId);
+      delete users[userId];
+    }
+
+    console.log(userId, 'disconnected');
+    socket.disconnect();
   });
 });
 
