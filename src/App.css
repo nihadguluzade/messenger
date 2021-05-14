@@ -12,6 +12,8 @@
 
   --dark-title-text: #313739;
 
+  --light-item-hover: #f5f5f5;
+
   --light-form-background: #ffffff;
   --light-form-border: #d9d9d9;
   --light-form-color: rgba(49, 55, 57, 0.85);
@@ -43,6 +45,8 @@
   --button-border: #5E4B56;
 
   --dark-title-text: #ffffff;
+
+  --light-item-hover: #262626;
 
   --light-form-background: transparent;
   --light-form-border: #434343;
@@ -80,6 +84,20 @@ html body {
   color: var(--light-form-color);
   background-color: var(--light-form-background);
   border-color: var(--light-form-border);
+}
+
+html body .ant-dropdown-menu {
+  background-color: var(--light-form-background);
+  border-color: var(--light-form-border);
+}
+
+html body .ant-dropdown-menu-item, html body .ant-dropdown-menu-item > a,
+html body .ant-dropdown-menu-item > a:hover, html body .ant-dropdown-menu-submenu-title > a:hover {
+  color: var(--dark-text);
+}
+
+html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-title:hover {
+  background-color: var(--light-item-hover);
 }
 
 #root .ant-menu {
