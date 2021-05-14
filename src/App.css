@@ -48,15 +48,15 @@
   --light-form-border: #434343;
   --light-form-color: rgba(255, 255, 255, 0.65);
 
-  --light-sider-background: #141414;
-  --light-sider-background-hover: #313739;
+  --light-sider-background: #0e0118;
+  --light-sider-background-hover: #2e2536;
   --light-sider-color-hover: #1890ff;
 
   --light-secondary-text: #d4d5d7;
 
-  --light-chat-banner-background: #1c2429;
-  --light-chat-banner-background-border: #1c2429;
-  --light-chat-background: #0a1419;
+  --light-chat-banner-background: #000;
+  --light-chat-banner-background-border: #000;
+  --light-chat-background: #000;
   --receiver-chat-background: #313131;
   --receiver-chat-color: #d0d0d0;
   --sender-chat-background: #0090ff;
