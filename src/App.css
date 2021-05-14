@@ -1,6 +1,8 @@
 @import "./theme.css";
 
 .theme-light {
+  --body-text: rgba(49, 55, 57, 0.85);
+
   --dark-text: #000000;
   --light-text: #F9F8F8;
   --dark-background: #f1f1f1;
@@ -13,9 +15,24 @@
   --light-form-background: #ffffff;
   --light-form-border: #d9d9d9;
   --light-form-color: rgba(49, 55, 57, 0.85);
+
+  --light-sider-background: #f2f2f2;
+  --light-sider-background-hover: #e3e3e3;
+  --light-sider-color-hover: rgba(49, 55, 57, 0.85);
+
+  --light-secondary-text: #949494;
+
+  --light-chat-banner-background: #ffffff;
+  --light-chat-banner-background-border: #dddddd;
+  --light-chat-background: #ffffff;
+  --receiver-chat-background: #f2f0f0;
+  --receiver-chat-color: rgba(49, 55, 57, 0.85);
+  --sender-chat-background: rgb(0, 143, 255);
 }
 
 .theme-dark {
+  --body-text: rgba(255, 255, 255, 0.65);
+
   --dark-text: #ffffff;
   --light-text: #5E4B56;
 
@@ -30,6 +47,19 @@
   --light-form-background: transparent;
   --light-form-border: #434343;
   --light-form-color: rgba(255, 255, 255, 0.65);
+
+  --light-sider-background: #141414;
+  --light-sider-background-hover: #313739;
+  --light-sider-color-hover: #1890ff;
+
+  --light-secondary-text: #d4d5d7;
+
+  --light-chat-banner-background: #1c2429;
+  --light-chat-banner-background-border: #1c2429;
+  --light-chat-background: #0a1419;
+  --receiver-chat-background: #313131;
+  --receiver-chat-color: #d0d0d0;
+  --sender-chat-background: #0090ff;
 }
 
 .toggle-container {
@@ -42,9 +72,31 @@
 
 html body {
   background-color: var(--light-background);
+  color: var(--body-text);
 }
 
-#root .ant-input {
+#root .ant-input, #root .ant-input-affix-wrapper, #root .ant-input-group,
+#root .ant-input-group-addon {
+  color: var(--light-form-color);
+  background-color: var(--light-form-background);
+  border-color: var(--light-form-border);
+}
+
+#root .ant-menu {
+  color: var(--light-form-color);
+  background-color: var(--light-form-background);
+  border-color: transparent;
+}
+
+#root .ant-btn {}
+
+#root .ant-btn-link {
+  color: #1890ff;
+  background: transparent;
+  border-color: transparent;
+}
+
+#root .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
   color: var(--light-form-color);
   background-color: var(--light-form-background);
   border-color: var(--light-form-border);
@@ -196,7 +248,7 @@ html body {
 }
 
 #MainComponent .chat-item-message {
-  color: #949494;
+  color: var(--light-secondary-text);
 }
 
 #MainComponent .chat-item-message.unread {
@@ -218,9 +270,8 @@ html body {
   background-color: #323739;
 }
 
-#MainComponent
-  .ant-menu.ant-menu-light {
-  background-color: #f2f2f2;
+#MainComponent .ant-menu.ant-menu-light {
+  background-color: var(--light-sider-background);
 }
 
 #MainComponent .chat-screen-layout {
@@ -228,7 +279,7 @@ html body {
 }
 
 #MainComponent .ant-layout-sider {
-  background: #f2f2f2;
+  background: var(--light-sider-background);
 }
 
 #MainComponent .ant-menu.ant-menu-dark,
@@ -238,7 +289,7 @@ html body {
 }
 
 #MainComponent .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background-color: #e3e3e3;
+  background-color: var(--light-sider-background-hover);
 }
 
 #MainComponent .ant-menu-inline .ant-menu-item::after {
@@ -247,16 +298,16 @@ html body {
 
 #MainComponent .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
 .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
-  background-color: #e3e3e3;
-  color: initial;
+  background-color: var(--light-sider-background-hover);
+  color: var(--light-sider-color-hover);
 }
 
 #MainComponent .ant-menu-item-selected {
-  color: initial;
+  /*color: initial;*/
 }
 
 #MainHeaderComponent {
-  background-color: #f2f2f2;
+  background-color: var(--light-sider-background);
 }
 
 #MainHeaderComponent .header-logo {
@@ -280,6 +331,7 @@ html body {
 #MainHeaderComponent .app-heading {
   text-align: left;
   font-weight: 300;
+  color: var(--dark-title-text);
 }
 
 #MainHeaderComponent .header-right {
@@ -307,12 +359,12 @@ html body {
 }
 
 #ChatScreenHeaderComponent {
-  background-color: #ffffff;
+  background-color: var(--light-chat-banner-background);
   padding: 6px 16px;
   position: absolute;
   top: 0;
   width: 100%;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid var(--light-chat-banner-background-border);
 }
 
 #ChatScreenHeaderComponent .chat-options {
@@ -332,7 +384,7 @@ html body {
 
 #ChatScreenHeaderComponent .chat-dest-user {
   font-size: 16px;
-  color: #000000;
+  color: var(--dark-text);
   line-height: 3;
   font-weight: bold;
 }
@@ -347,7 +399,7 @@ html body {
 }
 
 #ChatScreenComponent {
-  background-color: #ffffff;
+  background-color: var(--light-chat-background);
   height: 100vh;
   padding: 72px 18px;
   overflow: auto;
@@ -357,12 +409,12 @@ html body {
 }
 
 #ChatInputComponent {
-  background-color: #ffffff;
+  background-color: var(--light-chat-banner-background);
   padding: 12px;
   position: absolute;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #e3e3e3;
+  border-top: 1px solid var(--light-chat-banner-background-border);
 }
 
 #ChatInputComponent .op-btn .anticon {
@@ -396,12 +448,13 @@ html body {
 }
 
 .bubble-component [class*="sender-"] {
-  background-color: rgb(0, 143, 255);
+  background-color: var(--sender-chat-background);
   color: #ffffff;
 }
 
 .bubble-component [class*="receiver-"] {
-  background-color: #f2f0f0;
+  background-color: var(--receiver-chat-background);
+  color: var(--receiver-chat-color);
 }
 
 .bubble-component [class*="receiver-"],
