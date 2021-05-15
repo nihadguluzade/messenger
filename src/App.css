@@ -162,14 +162,11 @@
   background-color: rgb(0, 143, 255);
 }
 
-#MainComponent
-  .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
-  .ant-menu-item-selected {
+#MainComponent .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)  .ant-menu-item-selected {
   background-color: #323739;
 }
 
-#MainComponent
-  .ant-menu.ant-menu-light {
+#MainComponent .ant-menu.ant-menu-light {
   background-color: #f2f2f2;
 }
 
@@ -293,17 +290,17 @@
   float: left;
 }
 
-#ChatScreenHeaderComponent .chat–status {
+#ChatScreenHeaderComponent .chat-status {
   float: left;
   font-size: 12px;
   font-weight: 500;
 }
 
-#ChatScreenHeaderComponent .chat–status.online {
+/* these are not working idk why :/ */
+#ChatScreenHeaderComponent .chat-status.online {
   color: #389e0d;
 }
-
-#ChatScreenHeaderComponent .chat–status.offline {
+#ChatScreenHeaderComponent .chat-status.offline {
   color: #9a9a9a;
 }
 

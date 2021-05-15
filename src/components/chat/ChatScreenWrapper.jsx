@@ -7,6 +7,7 @@ import MessageService from '../../services/MessageService';
 import { connect } from 'react-redux';
 import { Button } from 'antd';
 import socketIOClient, { io } from "socket.io-client";
+import {SocketContext} from '../../utils/SocketContext';
 
 class ChatScreenWrapper extends Component {
 
@@ -19,22 +20,18 @@ class ChatScreenWrapper extends Component {
 
   charScrollRef = React.createRef();
 
-  SERVER_ENDPOINT = "http://127.0.0.1:5000"
+  static contextType = SocketContext;
 
-  socket = io(this.SERVER_ENDPOINT, {
-    query: {userId: this.props.user._id}
-  });
+  socket = this.context;
 
   prepareSocket = (socket) => {
     const that = this;
 
     socket.on("online", (userId) => {
-      console.log(userId, "is online");
       this.setState({childUpdate: userId + '-online'});
     });
 
     socket.on("offline", (userId) => {
-      console.log(userId, "is offline");
       this.setState({childUpdate: userId + '-offline'});
     });
 

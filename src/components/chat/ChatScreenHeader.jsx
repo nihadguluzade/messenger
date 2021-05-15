@@ -26,7 +26,6 @@ class ChatScreenHeader extends Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {statusUpdate, destUser, socket} = this.props;
-    console.log('componentdidupate', statusUpdate, prevProps.statusUpdate);
     if (destUser != prevProps.destUser || statusUpdate != prevProps.statusUpdate) {
       socket.emit("statusRequest", destUser._id);
     }
@@ -35,7 +34,6 @@ class ChatScreenHeader extends Component {
   render() {
     const {destUser} = this.props;
     const {status} = this.state;
-    console.log('render', destUser, status);
     const settings = (
       <Menu>
         <Menu.Item>
@@ -64,7 +62,7 @@ class ChatScreenHeader extends Component {
               </div>
               <div className="chat-desc-wrapper">
                 <span className="chat-dest-user">{destUser.username}</span>
-                <span className="chat–status offline">{status}</span>
+                <span className="chat-status" style={{color: status == "Online" ? "#389e0d" : "#9a9a9a"}}>{status}</span>
               </div>
             </Col>
             <Col span={6}>

@@ -42,7 +42,7 @@ io.on('connection', function (socket) {
     io.to(socketId).emit('statusReport', users[data]);
   })
 
-  socket.on('disconnect', function() {
+  socket.on('logout', function() {
     _.remove(users[userId], (u) => u == socket.id);
 
     if (users[userId].length == 0) {
@@ -51,6 +51,7 @@ io.on('connection', function (socket) {
     }
 
     console.log(userId, 'disconnected');
+    console.log('Online Users:', users);
     socket.disconnect();
   });
 });
@@ -68,7 +69,6 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
   app.get('/api/users', (req, res) => {
     usersCollection.find().toArray()
       .then(results => {
-        console.log("Got users");
         res.send(results);
       })
       .catch(console.error);

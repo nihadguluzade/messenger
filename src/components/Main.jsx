@@ -1,12 +1,15 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { Link } from 'react-router-dom';
-import {Layout, Menu, Row, Col, Image, Empty} from 'antd';
+import {Layout, Menu, Row, Col, Image, Empty, Spin} from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 import MainHeader from './MainHeader';
 import defaultAvatar from '../assets/avatar.png';
 import ChatScreenWrapper from './chat/ChatScreenWrapper';
 import { connect } from 'react-redux';
 import UserService from "../services/UserService";
 import MessageService from "../services/MessageService";
+import {io} from "socket.io-client";
+import {SocketContext} from "../utils/SocketContext";
 
 const {Sider, Content} = Layout;
 
@@ -15,12 +18,15 @@ class Main extends Component {
   state = {
     visibleUsers: [],
     destUser: {},
-    conversations: []
+    conversations: [],
+    socket: undefined
   }
 
   userService = new UserService();
 
   messageService = new MessageService();
+
+  SERVER_ENDPOINT = "http://127.0.0.1:5000"
 
   getUsers = () => {
     const {user} = this.props;
@@ -40,7 +46,7 @@ class Main extends Component {
         visibleUsers.map((_user, index) => {
           const dateTimes = [];
 
-          messages.filter(conv => conv.destUser._id == _user._id || conv.srcUID == _user._id).map(v => dateTimes.push(new Date(v.sentTime)));
+          messages.filter(conv => conv.destUID._id == _user._id || conv.srcUID == _user._id).map(v => dateTimes.push(new Date(v.sentTime)));
 
           const maxDate = new Date(Math.max(...dateTimes));
           const lastMes = messages.filter(m => new Date(m.sentTime).valueOf() == maxDate.valueOf())[0];
@@ -65,53 +71,66 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      socket: io(this.SERVER_ENDPOINT, {
+        query: {userId: this.props.user._id}
+      })
+    });
     this.getUsers();
   }
 
   render() {
-    const {visibleUsers, destUser, conversations} = this.state;
+    const {visibleUsers, destUser, conversations, socket} = this.state;
+    console.log('render', socket);
+
+    if (socket == undefined) {
+      return <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+    }
+
     return (
-      <Layout id="MainComponent">
-        <Sider
-          theme="light"
-          width={380}
-          style={{}}>
+      <SocketContext.Provider value={socket}>
+        <Layout id="MainComponent">
+          <Sider
+            theme="light"
+            width={380}
+            style={{}}>
 
-          <MainHeader />
+            <MainHeader />
 
-          <Menu theme="light" mode="inline" onClick={e => this.handleMenuClick(e)} className="chat-item-menu">
-            {visibleUsers.length > 0 ? (
-              visibleUsers.map((user, index) => {
-                return (
-                  <Menu.Item key={index}>
-                    <Row>
-                      <Col span={18} offset={0}>
-                        <div className="chat-item-avatar">
-                          <img src={defaultAvatar} style={{width: 55}} />
-                        </div>
-                        <div className="chat-item-desc">
-                          <span className="chat-item-user-name">{user.username}</span>
-                          {conversations.length > 0 && conversations.filter(c => c.user == user._id).length > 0 ? (
-                            <span className="chat-item-message">{conversations.filter(c => c.user == user._id)[0].lastMessage}</span>
-                          ) : (<span />)}
-                        </div>
-                      </Col>
-                    </Row>
-                  </Menu.Item>
-                )
-              })
-            ) : (<Menu.Item><Empty /></Menu.Item>)}
-          </Menu>
+            <Menu theme="light" mode="inline" onClick={e => this.handleMenuClick(e)} className="chat-item-menu">
+              {visibleUsers.length > 0 ? (
+                visibleUsers.map((user, index) => {
+                  return (
+                    <Menu.Item key={index}>
+                      <Row>
+                        <Col span={18} offset={0}>
+                          <div className="chat-item-avatar">
+                            <img src={defaultAvatar} style={{width: 55}} />
+                          </div>
+                          <div className="chat-item-desc">
+                            <span className="chat-item-user-name">{user.username}</span>
+                            {conversations.length > 0 && conversations.filter(c => c.user == user._id).length > 0 ? (
+                              <span className="chat-item-message">{conversations.filter(c => c.user == user._id)[0].lastMessage}</span>
+                            ) : (<span />)}
+                          </div>
+                        </Col>
+                      </Row>
+                    </Menu.Item>
+                  )
+                })
+              ) : (<Menu.Item><Empty /></Menu.Item>)}
+            </Menu>
 
-        </Sider>
+          </Sider>
 
-        <Layout className="chat-screen-layout">
-          <Content>
-            <ChatScreenWrapper destUser={destUser} updateConversations={this.getConversations} />
-          </Content>
+          <Layout className="chat-screen-layout">
+            <Content>
+              <ChatScreenWrapper destUser={destUser} updateConversations={this.getConversations} />
+            </Content>
+          </Layout>
+
         </Layout>
-
-      </Layout>
+      </SocketContext.Provider>
     )
   }
 }
