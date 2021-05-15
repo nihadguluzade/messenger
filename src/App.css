@@ -5,8 +5,10 @@
 
   --dark-text: #000000;
   --light-text: #F9F8F8;
+
   --dark-background: #f1f1f1;
   --light-background: #f1f1f1;
+
   --accent: #B8DBD9;
   --button-border: #B8DBD9;
 
@@ -35,6 +37,8 @@
   --alert-error-color: rgba(49, 55, 57, 0.85);
   --alert-error-background: #fff2f0;
   --alert-error-border: #ffccc7;
+
+  --light-icon: #a3a5a7;
 }
 
 .theme-dark {
@@ -74,6 +78,8 @@
   --alert-error-color: #ffffff;
   --alert-error-background: #9c2b2e;
   --alert-error-border: #e84e4f;
+
+  --light-icon: #ffffff;
 }
 
 .toggle-container {
@@ -90,7 +96,7 @@ html body {
 }
 
 #root .ant-input, #root .ant-input-affix-wrapper, #root .ant-input-group,
-#root .ant-input-group-addon {
+#root .ant-input-group-addon, #root .ant-select:not(.ant-select-customize-input) .ant-select-selector {
   color: var(--light-form-color);
   background-color: var(--light-form-background);
   border-color: var(--light-form-border);
@@ -393,6 +399,23 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
   text-align: right;
 }
 
+#MainHeaderComponent .header-search {
+  width: 100%;
+}
+
+#MainHeaderComponent .header-search > .ant-select-selector {
+  height: 36px;
+}
+
+#MainHeaderComponent .header-search .ant-select-selection-placeholder {
+  line-height: 34px;
+}
+
+#MainHeaderComponent .header-search .ant-select-selection-search-input {
+  height: 34px;
+  line-height: 34px;
+}
+
 #ChatScreenHeaderComponent {
   background-color: var(--light-chat-banner-background);
   padding: 6px 16px;
@@ -576,4 +599,8 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+.light-search-icn {
+  color: var(--light-icon);
 }
