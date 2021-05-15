@@ -30,6 +30,11 @@
   --receiver-chat-background: #f2f0f0;
   --receiver-chat-color: rgba(49, 55, 57, 0.85);
   --sender-chat-background: rgb(0, 143, 255);
+
+  --alert-color: rgba(49, 55, 57, 0.85);
+  --alert-error-color: rgba(49, 55, 57, 0.85);
+  --alert-error-background: #fff2f0;
+  --alert-error-border: #ffccc7;
 }
 
 .theme-dark {
@@ -64,6 +69,11 @@
   --receiver-chat-background: #313131;
   --receiver-chat-color: #d0d0d0;
   --sender-chat-background: #0090ff;
+
+  --alert-color: rgba(49, 55, 57, 0.85);
+  --alert-error-color: #ffffff;
+  --alert-error-background: #9c2b2e;
+  --alert-error-border: #e84e4f;
 }
 
 .toggle-container {
@@ -178,6 +188,15 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
 
 .login-form .login-form-register-link {
   float: right;
+}
+
+#root .ant-alert-error {
+  background-color: var(--alert-error-background);
+  border-color: var(--alert-error-border);
+}
+
+#root .ant-alert-error .ant-alert-message {
+  color: var(--alert-error-color);
 }
 
 .register-container {
