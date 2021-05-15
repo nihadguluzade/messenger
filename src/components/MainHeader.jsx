@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Row, Col, Image, Input, Button, Select} from 'antd';
-import { LogoutOutlined } from '@ant-design/icons';
+import { SearchOutlined } from '@ant-design/icons';
 import defaultAvatar from '../assets/sample-avatar-female.png';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -78,6 +78,8 @@ class MainHeader extends Component {
             showSearch
             placeholder="Search user"
             className="header-search"
+            allowClear
+            suffixIcon={<SearchOutlined className="light-search-icn" />}
             onSelect={this.handleOnSelect}
             onSearch={this.handleOnSearch}
           >
