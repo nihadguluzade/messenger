@@ -59,6 +59,22 @@ class UserService extends Component {
     return await response.text();
   }
 
+  async getUsersStartingWith(value) {
+    const response = await fetch(`/api/user/startsWith=${value}`);
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
+  async getParticipants(userId) {
+    const response = await fetch(`/api/user/participants/uid=${userId}`);
+    const responseBody = await response.json();
+
+    if (response.status !== 200) throw Error(responseBody.message);
+    return responseBody;
+  }
+
 }
 
 export default UserService;

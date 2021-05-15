@@ -106,6 +106,32 @@ MongoClient.connect(connectionString, { useUnifiedTopology: true }).then(client 
       .catch(console.error);
   });
 
+  app.get('/api/user/startsWith=:value', (req, res) => {
+    usersCollection.find().toArray()
+      .then(result => {
+        res.send(result.filter(user => user.username.startsWith(req.params.value)));
+      })
+      .catch(console.error);
+  });
+
+  app.get('/api/user/participants/uid=:userId', (req, res) => {
+    messagesCollection.find().toArray()
+      .then(result => {
+        const userMessages = result.filter(mes => (mes.destUID == req.params.userId || mes.srcUID == req.params.userId));
+        let distinctUsersId = [];
+        for (let i = 0; i < userMessages.length; i++) {
+          if (distinctUsersId.indexOf(userMessages[i].destUID) == -1) {
+            distinctUsersId.push(userMessages[i].destUID);
+          }
+          if (distinctUsersId.indexOf(userMessages[i].srcUID) == -1) {
+            distinctUsersId.push(userMessages[i].srcUID);
+          }
+        }
+        res.send(distinctUsersId.filter(uid => uid != req.params.userId));
+      })
+      .catch(console.error);
+  });
+
   app.put('/api/users', (req, res) => {
     console.log(req.body);
     req.body._id = new ObjectId(req.body._id);

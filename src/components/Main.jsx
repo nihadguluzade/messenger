@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import { Link } from 'react-router-dom';
-import {Layout, Menu, Row, Col, Image, Empty, Spin} from 'antd';
+import {Layout, Menu, Row, Col, Typography, Spin} from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import MainHeader from './MainHeader';
 import defaultAvatar from '../assets/avatar.png';
@@ -12,6 +12,7 @@ import {io} from "socket.io-client";
 import {SocketContext} from "../utils/SocketContext";
 
 const {Sider, Content} = Layout;
+const {Text} = Typography;
 
 class Main extends Component {
 
@@ -30,11 +31,24 @@ class Main extends Component {
 
   getUsers = () => {
     const {user} = this.props;
-    this.userService.getUsers().then(users => {
-      if (users.length > 0) {
-        this.setState({visibleUsers: users.filter(u => u.username != user.username)}, this.getConversations);
-      }
-    }).catch(console.error);
+    const visibleUsers = [];
+
+    this.userService.getParticipants(user._id)
+      .then(uids => {
+        if (uids.length > 0) {
+
+          uids.map((uid) => {
+            this.userService.getUser(uid)
+              .then(filteredUser => {
+                visibleUsers.push(filteredUser);
+              })
+              .catch(console.error);
+          });
+
+          this.setState({visibleUsers}, this.getConversations);
+        }
+      })
+      .catch(console.error);
   }
 
   getConversations = () => {
@@ -46,7 +60,9 @@ class Main extends Component {
         visibleUsers.map((_user, index) => {
           const dateTimes = [];
 
-          messages.filter(conv => conv.destUID._id == _user._id || conv.srcUID == _user._id).map(v => dateTimes.push(new Date(v.sentTime)));
+          messages
+            .filter(conv => conv.destUID._id == _user._id || conv.srcUID == _user._id)
+            .map(v => dateTimes.push(new Date(v.sentTime)));
 
           const maxDate = new Date(Math.max(...dateTimes));
           const lastMes = messages.filter(m => new Date(m.sentTime).valueOf() == maxDate.valueOf())[0];
@@ -117,7 +133,7 @@ class Main extends Component {
                     </Menu.Item>
                   )
                 })
-              ) : (<Menu.Item><Empty /></Menu.Item>)}
+              ) : (<Menu.Item><Text type="secondary"><i>Add users from top search to start chatting...</i></Text></Menu.Item>)}
             </Menu>
 
           </Sider>

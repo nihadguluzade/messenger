@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Row, Col, Image, Input, Button } from 'antd';
+import {Row, Col, Image, Input, Button, Select} from 'antd';
 import { LogoutOutlined } from '@ant-design/icons';
 import defaultAvatar from '../assets/sample-avatar-female.png';
 import { withRouter } from 'react-router-dom';
@@ -8,14 +8,21 @@ import {logout} from "../redux/Actions";
 import logo from '../messenger-logo.png';
 import ThemeToggler from "./ThemeToggler";
 import {SocketContext} from "../utils/SocketContext";
+import UserService from "../services/UserService";
 
-const onSearch = value => console.log(value);
+const {Option} = Select;
 
 class MainHeader extends Component {
+
+  state = {
+    searchedUsers: []
+  }
 
   static contextType = SocketContext;
 
   socket = this.context;
+
+  userService = new UserService();
 
   handleLogout = () => {
     const {logout, history} = this.props;
@@ -27,8 +34,19 @@ class MainHeader extends Component {
     }
   }
 
+  handleOnSearch = (val) => {
+    if (val.length > 0) {
+      this.userService.getUsersStartingWith(val)
+        .then(res => {
+          this.setState({searchedUsers: res})
+        })
+        .catch(console.error);
+    }
+  }
+
   render() {
     const {user} = this.props;
+    const {searchedUsers} = this.state;
     return (
       <div id="MainHeaderComponent">
         <Row>
@@ -52,11 +70,23 @@ class MainHeader extends Component {
           </Col>
         </Row>
         <Row>
-          <Input.Search
+          <Select
+            showSearch
+            placeholder="Search user"
+            className="header-search"
+            onSearch={this.handleOnSearch}
+          >
+            {searchedUsers.length > 0 && searchedUsers.map((user, index) => {
+              return (
+                <Option key={index} value={user.username}>{user.username}</Option>
+              )
+            })}
+          </Select>
+          {/*<Input.Search
             size="small"
             placeholder="Search"
             allowClear
-            onSearch={onSearch}/>
+            onSearch={onSearch}/>*/}
         </Row>
       </div>
     )
