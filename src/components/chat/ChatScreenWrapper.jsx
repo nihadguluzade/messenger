@@ -51,6 +51,7 @@ class ChatScreenWrapper extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.destUser != this.props.destUser) {
       this.refreshMessages();
+      this.setState({childUpdate: {}})
     }
     this.scrollToBottom();
   }
