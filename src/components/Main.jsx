@@ -60,8 +60,9 @@ class Main extends Component {
         visibleUsers.map((_user, index) => {
           const dateTimes = [];
 
+
           messages
-            .filter(conv => conv.destUID._id == _user._id || conv.srcUID == _user._id)
+            .filter(conv => conv.destUID == _user._id || conv.srcUID == _user._id)
             .map(v => dateTimes.push(new Date(v.sentTime)));
 
           const maxDate = new Date(Math.max(...dateTimes));
