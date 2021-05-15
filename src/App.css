@@ -430,7 +430,6 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
 #ChatScreenHeaderComponent .chat-dest-user {
   font-size: 16px;
   color: var(--dark-text);
-  line-height: 3;
   font-weight: bold;
   width: 100%;
   float: left;
@@ -566,7 +565,7 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
 }
 
 .empty-chat-screen {
-  background: #fff;
+  background: var(--light-chat-background);
   position: relative;
   height: 100vh;
 }

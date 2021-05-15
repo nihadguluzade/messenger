@@ -39,7 +39,6 @@ class Login extends Component {
 
   saveStateToLS = () => {
     if (global.localStorage) {
-      console.log(this.props);
       global.localStorage.setItem("state", JSON.stringify(this.props.user));
     }
   }
