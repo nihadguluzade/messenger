@@ -7,6 +7,7 @@ import logo from '../messenger-logo.png';
 import { User } from '../models/User';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import ThemeToggler from "./ThemeToggler";
 
 const Home = (props) => {
   const [mode, setMode] = useState("login");
@@ -18,6 +19,9 @@ const Home = (props) => {
           <div className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <span className="home-title">Messenger</span>
+            <div className="m-t-12" >
+              <ThemeToggler />
+            </div>
           </div>
         </Col>
         <Col span={12}>

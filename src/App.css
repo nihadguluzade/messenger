@@ -1,5 +1,135 @@
 @import "./theme.css";
 
+.theme-light {
+  --body-text: rgba(49, 55, 57, 0.85);
+
+  --dark-text: #000000;
+  --light-text: #F9F8F8;
+  --dark-background: #f1f1f1;
+  --light-background: #f1f1f1;
+  --accent: #B8DBD9;
+  --button-border: #B8DBD9;
+
+  --dark-title-text: #313739;
+
+  --light-item-hover: #f5f5f5;
+
+  --light-form-background: #ffffff;
+  --light-form-border: #d9d9d9;
+  --light-form-color: rgba(49, 55, 57, 0.85);
+
+  --light-sider-background: #f2f2f2;
+  --light-sider-background-hover: #e3e3e3;
+  --light-sider-color-hover: rgba(49, 55, 57, 0.85);
+
+  --light-secondary-text: #949494;
+
+  --light-chat-banner-background: #ffffff;
+  --light-chat-banner-background-border: #dddddd;
+  --light-chat-background: #ffffff;
+  --receiver-chat-background: #f2f0f0;
+  --receiver-chat-color: rgba(49, 55, 57, 0.85);
+  --sender-chat-background: rgb(0, 143, 255);
+
+  --alert-color: rgba(49, 55, 57, 0.85);
+  --alert-error-color: rgba(49, 55, 57, 0.85);
+  --alert-error-background: #fff2f0;
+  --alert-error-border: #ffccc7;
+}
+
+.theme-dark {
+  --body-text: rgba(255, 255, 255, 0.65);
+
+  --dark-text: #ffffff;
+  --light-text: #5E4B56;
+
+  --dark-background: #0d0014;
+  --light-background: #141414;
+
+  --accent: #DBE7E4;
+  --button-border: #5E4B56;
+
+  --dark-title-text: #ffffff;
+
+  --light-item-hover: #262626;
+
+  --light-form-background: transparent;
+  --light-form-border: #434343;
+  --light-form-color: rgba(255, 255, 255, 0.65);
+
+  --light-sider-background: #0e0118;
+  --light-sider-background-hover: #2e2536;
+  --light-sider-color-hover: #1890ff;
+
+  --light-secondary-text: #d4d5d7;
+
+  --light-chat-banner-background: #000;
+  --light-chat-banner-background-border: #000;
+  --light-chat-background: #000;
+  --receiver-chat-background: #313131;
+  --receiver-chat-color: #d0d0d0;
+  --sender-chat-background: #0090ff;
+
+  --alert-color: rgba(49, 55, 57, 0.85);
+  --alert-error-color: #ffffff;
+  --alert-error-background: #9c2b2e;
+  --alert-error-border: #e84e4f;
+}
+
+.toggle-container {
+  display: grid;
+  place-items: center;
+  position: relative;
+  grid-area: toggle;
+  margin-bottom: 6px;
+}
+
+html body {
+  background-color: var(--light-background);
+  color: var(--body-text);
+}
+
+#root .ant-input, #root .ant-input-affix-wrapper, #root .ant-input-group,
+#root .ant-input-group-addon {
+  color: var(--light-form-color);
+  background-color: var(--light-form-background);
+  border-color: var(--light-form-border);
+}
+
+html body .ant-dropdown-menu {
+  background-color: var(--light-form-background);
+  border-color: var(--light-form-border);
+}
+
+html body .ant-dropdown-menu-item, html body .ant-dropdown-menu-item > a,
+html body .ant-dropdown-menu-item > a:hover, html body .ant-dropdown-menu-submenu-title > a:hover {
+  color: var(--dark-text);
+}
+
+html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-title:hover {
+  background-color: var(--light-item-hover);
+}
+
+#root .ant-menu {
+  color: var(--light-form-color);
+  background-color: var(--light-form-background);
+  border-color: transparent;
+}
+
+#root .ant-btn {}
+
+#root .ant-btn-link {
+  color: #1890ff;
+  background: transparent;
+  border-color: transparent;
+}
+
+#root .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button:not(.ant-btn-primary) {
+  color: var(--light-form-color);
+  background-color: var(--light-form-background);
+  border-color: var(--light-form-border);
+}
+
 .App {
   min-height: 100vh;
 }
@@ -60,6 +190,15 @@
   float: right;
 }
 
+#root .ant-alert-error {
+  background-color: var(--alert-error-background);
+  border-color: var(--alert-error-border);
+}
+
+#root .ant-alert-error .ant-alert-message {
+  color: var(--alert-error-color);
+}
+
 .register-container {
 
 }
@@ -68,12 +207,12 @@
   display: block;
   margin-bottom: 12px;
   font-weight: bold;
-  color: #313739;
+  color: var(--dark-title-text);
 }
 
 .login-form label,
 .register-form label {
-  color: #000000 !important;
+  color: var(--dark-text) !important;
 }
 
 .register-form input {
@@ -100,7 +239,7 @@
 }
 
 .home .home-title {
-  color: #313739;
+  color: var(--dark-title-text);
   font-weight: 200;
   font-size: 37px;
 }
@@ -146,7 +285,7 @@
 }
 
 #MainComponent .chat-item-message {
-  color: #949494;
+  color: var(--light-secondary-text);
 }
 
 #MainComponent .chat-item-message.unread {
@@ -167,7 +306,7 @@
 }
 
 #MainComponent .ant-menu.ant-menu-light {
-  background-color: #f2f2f2;
+  background-color: var(--light-sider-background);
 }
 
 #MainComponent .chat-screen-layout {
@@ -175,7 +314,7 @@
 }
 
 #MainComponent .ant-layout-sider {
-  background: #f2f2f2;
+  background: var(--light-sider-background);
 }
 
 #MainComponent .ant-menu.ant-menu-dark,
@@ -185,7 +324,7 @@
 }
 
 #MainComponent .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
-  background-color: #e3e3e3;
+  background-color: var(--light-sider-background-hover);
 }
 
 #MainComponent .ant-menu-inline .ant-menu-item::after {
@@ -194,16 +333,16 @@
 
 #MainComponent .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open,
 .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
-  background-color: #e3e3e3;
-  color: initial;
+  background-color: var(--light-sider-background-hover);
+  color: var(--light-sider-color-hover);
 }
 
 #MainComponent .ant-menu-item-selected {
-  color: initial;
+  /*color: initial;*/
 }
 
 #MainHeaderComponent {
-  background-color: #f2f2f2;
+  background-color: var(--light-sider-background);
 }
 
 #MainHeaderComponent .header-logo {
@@ -213,7 +352,7 @@
 }
 
 #MainHeaderComponent .ant-row {
-  padding: 24px;
+  padding: 24px 24px 12px;
 }
 
 #MainHeaderComponent .ant-row:last-child {
@@ -227,11 +366,17 @@
 #MainHeaderComponent .app-heading {
   text-align: left;
   font-weight: 300;
+  color: var(--dark-title-text);
 }
 
 #MainHeaderComponent .header-right {
   float: right;
-  line-height: 65px;
+  padding: 6px 0;
+}
+
+#MainHeaderComponent .header-right .logout-btn {
+  font-weight: 700;
+  padding: 8px 15px;
 }
 
 #MainHeaderComponent .edit-icon {
@@ -249,12 +394,12 @@
 }
 
 #ChatScreenHeaderComponent {
-  background-color: #ffffff;
+  background-color: var(--light-chat-banner-background);
   padding: 6px 16px;
   position: absolute;
   top: 0;
   width: 100%;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid var(--light-chat-banner-background-border);
 }
 
 #ChatScreenHeaderComponent .chat-options {
@@ -284,7 +429,8 @@
 
 #ChatScreenHeaderComponent .chat-dest-user {
   font-size: 16px;
-  color: #000000;
+  color: var(--dark-text);
+  line-height: 3;
   font-weight: bold;
   width: 100%;
   float: left;
@@ -314,7 +460,7 @@
 }
 
 #ChatScreenComponent {
-  background-color: #ffffff;
+  background-color: var(--light-chat-background);
   height: 100vh;
   padding: 72px 18px;
   overflow: auto;
@@ -324,12 +470,12 @@
 }
 
 #ChatInputComponent {
-  background-color: #ffffff;
+  background-color: var(--light-chat-banner-background);
   padding: 12px;
   position: absolute;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid #e3e3e3;
+  border-top: 1px solid var(--light-chat-banner-background-border);
 }
 
 #ChatInputComponent .op-btn .anticon {
@@ -363,12 +509,13 @@
 }
 
 .bubble-component [class*="sender-"] {
-  background-color: rgb(0, 143, 255);
+  background-color: var(--sender-chat-background);
   color: #ffffff;
 }
 
 .bubble-component [class*="receiver-"] {
-  background-color: #f2f0f0;
+  background-color: var(--receiver-chat-background);
+  color: var(--receiver-chat-color);
 }
 
 .bubble-component [class*="receiver-"],
