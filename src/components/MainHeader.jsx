@@ -6,15 +6,21 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {logout} from "../redux/Actions";
 import logo from '../messenger-logo.png';
+import {SocketContext} from "../utils/SocketContext";
 
 const onSearch = value => console.log(value);
 
 class MainHeader extends Component {
 
+  static contextType = SocketContext;
+
+  socket = this.context;
+
   handleLogout = () => {
     const {logout, history} = this.props;
     logout();
     history.push("/");
+    this.socket.emit('logout');
     if (global.localStorage) {
       global.localStorage.removeItem("state");
     }

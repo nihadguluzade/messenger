@@ -1,30 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ChatScreenHeader from './ChatScreenHeader';
 import ChatScreen from './ChatScreen';
 import ChatInput from './ChatInput';
 import Bubble from './Bubble';
 import MessageService from '../../services/MessageService';
 import { connect } from 'react-redux';
-import { Button } from 'antd';
-import socketIOClient from "socket.io-client";
-
-const SERVER_ENDPOINT = "http://127.0.0.1:5000"
-const socket = socketIOClient(SERVER_ENDPOINT);
+import {Button, Empty} from 'antd';
+import socketIOClient, { io } from "socket.io-client";
+import {SocketContext} from '../../utils/SocketContext';
 
 class ChatScreenWrapper extends Component {
 
   state = {
     conversation: new Array(),
+    childUpdate: undefined
   }
 
   messageService = new MessageService();
 
   charScrollRef = React.createRef();
 
-  componentDidMount() {
+  static contextType = SocketContext;
+
+  socket = this.context;
+
+  prepareSocket = (socket) => {
     const that = this;
-    this.refreshMessages();
-    this.scrollToBottom();
+
+    socket.on("online", (userId) => {
+      this.setState({childUpdate: userId + '-online'});
+    });
+
+    socket.on("offline", (userId) => {
+      this.setState({childUpdate: userId + '-offline'});
+    });
+
     socket.on('newMessage', function(data) {
       that.refreshMessages();
       that.props.updateConversations();
@@ -32,22 +42,28 @@ class ChatScreenWrapper extends Component {
     });
   }
 
+  componentDidMount() {
+    this.refreshMessages();
+    this.scrollToBottom();
+    this.prepareSocket(this.socket);
+  }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.destUID != this.props.destUID) {
+    if (prevProps.destUser != this.props.destUser) {
       this.refreshMessages();
     }
     this.scrollToBottom();
   }
 
   emitSent = (message) => {
-    socket.emit('msg', message);
+    this.socket.emit('msg', message);
     this.refreshMessages();
     this.props.updateConversations();
   }
 
   refreshMessages = () => {
-    const {user, destUID} = this.props;
-    this.messageService.getConversation(destUID, user._id)
+    const {user, destUser} = this.props;
+    this.messageService.getConversation(destUser._id, user._id)
       .then(conversation => this.setState({ conversation }))
       .catch(console.error);
   }
@@ -57,14 +73,23 @@ class ChatScreenWrapper extends Component {
   }
 
   render() {
-    const { destUID } = this.props;
-    const { conversation } = this.state;
+    const { destUser } = this.props;
+    const { conversation, childUpdate } = this.state;
     let currentType;
     let prevType;
     let nextType;
+
+    if (destUser._id == undefined) {
+      return (
+        <div className="empty-chat-screen">
+          <Empty description="Select user from the left to start the chat!" />
+        </div>
+      )
+    }
+
     return (
-      <>
-        <ChatScreenHeader destUID={destUID} />
+      <Fragment>
+        <ChatScreenHeader statusUpdate={childUpdate} destUser={destUser} socket={this.socket} />
 
         {/* <ChatScreen /> */}
 
@@ -138,8 +163,8 @@ class ChatScreenWrapper extends Component {
           </div>
         </div>
 
-        <ChatInput destUID={destUID} emit={this.emitSent} />
-      </>
+        <ChatInput destUID={destUser._id} emit={this.emitSent} />
+      </Fragment>
     )
   }
 
