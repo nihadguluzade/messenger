@@ -301,9 +301,7 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
   background-color: rgb(0, 143, 255);
 }
 
-#MainComponent
-  .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)
-  .ant-menu-item-selected {
+#MainComponent .ant-menu-dark.ant-menu-dark:not(.ant-menu-horizontal)  .ant-menu-item-selected {
   background-color: #323739;
 }
 
@@ -412,6 +410,8 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
 #ChatScreenHeaderComponent .chat-avatar {
   display: inline-block;
   margin-right: 12px;
+  line-height: 48px;
+  float: left;
 }
 
 #ChatScreenHeaderComponent .chat-avatar img {
@@ -419,11 +419,35 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
   border-radius: 50%;
 }
 
+#ChatScreenHeaderComponent .chat-desc-wrapper {
+  display: block;
+  max-width: 100px;
+  float: left;
+  line-height: 17px;
+  margin-top: 8px;
+}
+
 #ChatScreenHeaderComponent .chat-dest-user {
   font-size: 16px;
   color: var(--dark-text);
   line-height: 3;
   font-weight: bold;
+  width: 100%;
+  float: left;
+}
+
+#ChatScreenHeaderComponent .chat-status {
+  float: left;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* these are not working idk why :/ */
+#ChatScreenHeaderComponent .chat-status.online {
+  color: #389e0d;
+}
+#ChatScreenHeaderComponent .chat-status.offline {
+  color: #9a9a9a;
 }
 
 #ChatScreenHeaderComponent .chat-settings {
@@ -539,4 +563,18 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
 
 .m-b-12 {
   margin-bottom: 12px;
+}
+
+.empty-chat-screen {
+  background: #fff;
+  position: relative;
+  height: 100vh;
+}
+
+.empty-chat-screen .ant-empty {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
