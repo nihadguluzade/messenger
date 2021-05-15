@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import ChatScreenHeader from './ChatScreenHeader';
 import ChatScreen from './ChatScreen';
 import ChatInput from './ChatInput';
 import Bubble from './Bubble';
 import MessageService from '../../services/MessageService';
 import { connect } from 'react-redux';
-import { Button } from 'antd';
+import {Button, Empty} from 'antd';
 import socketIOClient, { io } from "socket.io-client";
 import {SocketContext} from '../../utils/SocketContext';
 
@@ -78,8 +78,17 @@ class ChatScreenWrapper extends Component {
     let currentType;
     let prevType;
     let nextType;
+
+    if (destUser._id == undefined) {
+      return (
+        <div className="empty-chat-screen">
+          <Empty description="Select user from the left to start the chat!" />
+        </div>
+      )
+    }
+
     return (
-      <>
+      <Fragment>
         <ChatScreenHeader statusUpdate={childUpdate} destUser={destUser} socket={this.socket} />
 
         {/* <ChatScreen /> */}
@@ -155,7 +164,7 @@ class ChatScreenWrapper extends Component {
         </div>
 
         <ChatInput destUID={destUser._id} emit={this.emitSent} />
-      </>
+      </Fragment>
     )
   }
 

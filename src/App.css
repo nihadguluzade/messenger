@@ -417,3 +417,17 @@
 .m-b-12 {
   margin-bottom: 12px;
 }
+
+.empty-chat-screen {
+  background: #fff;
+  position: relative;
+  height: 100vh;
+}
+
+.empty-chat-screen .ant-empty {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

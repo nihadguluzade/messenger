@@ -19,8 +19,8 @@ const io = require('socket.io')(server, {
   }
 });
 
-let users = {};
 const _ = require("lodash");
+let users = {};
 
 io.on('connection', function (socket) {
 

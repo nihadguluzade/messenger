@@ -81,7 +81,6 @@ class Main extends Component {
 
   render() {
     const {visibleUsers, destUser, conversations, socket} = this.state;
-    console.log('render', socket);
 
     if (socket == undefined) {
       return <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
