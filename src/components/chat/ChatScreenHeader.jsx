@@ -7,22 +7,10 @@ import UserService from "../../services/UserService";
 class ChatScreenHeader extends Component {
 
   state = {
-    user: undefined,
     status: 'Offline'
   }
 
   userService = new UserService();
-
-  getUser = () => {
-    const {destUID} = this.props;
-    if (destUID != -1) {
-      this.userService.getUser(destUID)
-        .then(u => {
-          this.setState({user: u});
-        })
-        .catch(console.error)
-    }
-  }
 
   componentDidMount() {
     const {socket} = this.props;
@@ -37,15 +25,17 @@ class ChatScreenHeader extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {destUID, socket} = this.props;
-    if (destUID != prevProps.destUID) {
-      this.getUser();
-      socket.emit("statusRequest", destUID);
+    const {statusUpdate, destUser, socket} = this.props;
+    console.log('componentdidupate', statusUpdate, prevProps.statusUpdate);
+    if (destUser != prevProps.destUser || statusUpdate != prevProps.statusUpdate) {
+      socket.emit("statusRequest", destUser._id);
     }
   }
 
   render() {
-    const {user, status} = this.state;
+    const {destUser} = this.props;
+    const {status} = this.state;
+    console.log('render', destUser, status);
     const settings = (
       <Menu>
         <Menu.Item>
@@ -63,7 +53,7 @@ class ChatScreenHeader extends Component {
 
     return (
       <div id="ChatScreenHeaderComponent">
-        {user != undefined ? (
+        {destUser != undefined ? (
           <Row>
             {/*<Col span={2}>
               <Image className="image-circle" width={45} src={defaultAvatar} />
@@ -73,7 +63,7 @@ class ChatScreenHeader extends Component {
                 <img src={defaultAvatar} />
               </div>
               <div className="chat-desc-wrapper">
-                <span className="chat-dest-user">{user.username}</span>
+                <span className="chat-dest-user">{destUser.username}</span>
                 <span className="chat–status offline">{status}</span>
               </div>
             </Col>

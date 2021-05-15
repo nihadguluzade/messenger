@@ -14,7 +14,7 @@ class Main extends Component {
 
   state = {
     visibleUsers: [],
-    destUID: -1,
+    destUser: {},
     conversations: []
   }
 
@@ -40,7 +40,7 @@ class Main extends Component {
         visibleUsers.map((_user, index) => {
           const dateTimes = [];
 
-          messages.filter(conv => conv.destUID == _user._id || conv.srcUID == _user._id).map(v => dateTimes.push(new Date(v.sentTime)));
+          messages.filter(conv => conv.destUser._id == _user._id || conv.srcUID == _user._id).map(v => dateTimes.push(new Date(v.sentTime)));
 
           const maxDate = new Date(Math.max(...dateTimes));
           const lastMes = messages.filter(m => new Date(m.sentTime).valueOf() == maxDate.valueOf())[0];
@@ -61,7 +61,7 @@ class Main extends Component {
 
   handleMenuClick = (e) => {
     const user = this.state.visibleUsers[parseInt(e.key)];
-    this.setState({destUID: user._id});
+    this.setState({destUser: user});
   }
 
   componentDidMount() {
@@ -69,7 +69,7 @@ class Main extends Component {
   }
 
   render() {
-    const {visibleUsers, destUID, conversations} = this.state;
+    const {visibleUsers, destUser, conversations} = this.state;
     return (
       <Layout id="MainComponent">
         <Sider
@@ -107,7 +107,7 @@ class Main extends Component {
 
         <Layout className="chat-screen-layout">
           <Content>
-            <ChatScreenWrapper destUID={destUID} updateConversations={this.getConversations} />
+            <ChatScreenWrapper destUser={destUser} updateConversations={this.getConversations} />
           </Content>
         </Layout>
 

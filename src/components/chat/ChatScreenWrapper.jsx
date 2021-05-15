@@ -12,6 +12,7 @@ class ChatScreenWrapper extends Component {
 
   state = {
     conversation: new Array(),
+    childUpdate: undefined
   }
 
   messageService = new MessageService();
@@ -25,14 +26,16 @@ class ChatScreenWrapper extends Component {
   });
 
   prepareSocket = (socket) => {
+    const that = this;
+
     socket.on("online", (userId) => {
       console.log(userId, "is online");
-      this.setState({status: "Online"});
+      this.setState({childUpdate: userId + '-online'});
     });
 
     socket.on("offline", (userId) => {
       console.log(userId, "is offline");
-      this.setState({status: "Offline"});
+      this.setState({childUpdate: userId + '-offline'});
     });
 
     socket.on('newMessage', function(data) {
@@ -43,28 +46,27 @@ class ChatScreenWrapper extends Component {
   }
 
   componentDidMount() {
-    const that = this;
     this.refreshMessages();
     this.scrollToBottom();
     this.prepareSocket(this.socket);
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.destUID != this.props.destUID) {
+    if (prevProps.destUser != this.props.destUser) {
       this.refreshMessages();
     }
     this.scrollToBottom();
   }
 
   emitSent = (message) => {
-    socket.emit('msg', message);
+    this.socket.emit('msg', message);
     this.refreshMessages();
     this.props.updateConversations();
   }
 
   refreshMessages = () => {
-    const {user, destUID} = this.props;
-    this.messageService.getConversation(destUID, user._id)
+    const {user, destUser} = this.props;
+    this.messageService.getConversation(destUser._id, user._id)
       .then(conversation => this.setState({ conversation }))
       .catch(console.error);
   }
@@ -74,14 +76,14 @@ class ChatScreenWrapper extends Component {
   }
 
   render() {
-    const { destUID } = this.props;
-    const { conversation } = this.state;
+    const { destUser } = this.props;
+    const { conversation, childUpdate } = this.state;
     let currentType;
     let prevType;
     let nextType;
     return (
       <>
-        <ChatScreenHeader destUID={destUID} socket={this.socket} />
+        <ChatScreenHeader statusUpdate={childUpdate} destUser={destUser} socket={this.socket} />
 
         {/* <ChatScreen /> */}
 
@@ -155,7 +157,7 @@ class ChatScreenWrapper extends Component {
           </div>
         </div>
 
-        <ChatInput destUID={destUID} emit={this.emitSent} />
+        <ChatInput destUID={destUser._id} emit={this.emitSent} />
       </>
     )
   }
