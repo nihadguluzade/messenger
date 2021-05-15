@@ -1,4 +1,4 @@
-@import "./theme.css";
+@import '~antd/dist/antd.css';
 
 .theme-light {
   --body-text: rgba(49, 55, 57, 0.85);
@@ -253,6 +253,10 @@ html body .ant-dropdown-menu-item:hover, html body .ant-dropdown-menu-submenu-ti
 .home .ant-input {
   height: 36px;
   border-radius: 6px;
+}
+
+.home .ant-btn-primary {
+  height: 40px;
 }
 
 .home .ant-btn-primary:hover {
