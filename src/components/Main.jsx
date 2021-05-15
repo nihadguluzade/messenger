@@ -86,6 +86,12 @@ class Main extends Component {
     this.setState({destUser: user});
   }
 
+  startChatWith = (username) => {
+    this.userService.getUserByUsername(username)
+      .then(user => this.setState({destUser: user[0]}))
+      .catch(console.error);
+  }
+
   componentDidMount() {
     this.setState({
       socket: io(this.SERVER_ENDPOINT, {
@@ -110,7 +116,7 @@ class Main extends Component {
             width={380}
             style={{}}>
 
-            <MainHeader />
+            <MainHeader startChatWith={this.startChatWith} />
 
             <Menu theme="light" mode="inline" onClick={e => this.handleMenuClick(e)} className="chat-item-menu">
               {visibleUsers.length > 0 ? (

@@ -124,9 +124,7 @@ class ChatScreenWrapper extends Component {
                     nextType = "receiver";
                   }
 
-                  if (nextType == "sender" && prevType == undefined) {
-                    currentType = "sender-start";
-                  } else if (nextType == "sender" && prevType == "sender-start") {
+                  if (nextType == "sender" && prevType == "sender-start") {
                     currentType = "sender-middle";
                   } else if (nextType == "sender" && prevType == "sender-middle") {
                     currentType = "sender-middle";
@@ -138,8 +136,6 @@ class ChatScreenWrapper extends Component {
                     currentType = "receiver-middle";
                   } else if (nextType == "receiver" && prevType == "receiver-middle") {
                     currentType = "receiver-middle";
-                  } else if (nextType == "receiver" && prevType == undefined) {
-                    currentType = "receiver-start";
                   } else if (nextType == "receiver" && prevType == "sender-start") {
                     currentType = "sender-end";
                   } else if (nextType == "sender" && prevType == "receiver-middle") {

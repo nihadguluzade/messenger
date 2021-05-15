@@ -44,6 +44,10 @@ class MainHeader extends Component {
     }
   }
 
+  handleOnSelect = (selected) => {
+    this.props.startChatWith(selected);
+  }
+
   render() {
     const {user} = this.props;
     const {searchedUsers} = this.state;
@@ -74,6 +78,7 @@ class MainHeader extends Component {
             showSearch
             placeholder="Search user"
             className="header-search"
+            onSelect={this.handleOnSelect}
             onSearch={this.handleOnSearch}
           >
             {searchedUsers.length > 0 && searchedUsers.map((user, index) => {
